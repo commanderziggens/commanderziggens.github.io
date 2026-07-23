@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/PIK-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>PIK visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/PIK-files/logo.png" />
+	<img class="preload-hidden" src="../sets/HOK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/PIK-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a id="header-articles-link" onclick="window.location.href = rootPath + '/all-articles'" style="display: none;"><img id="header-articles" class="sg-icon">Articles</a>
+			<a id="header-decks-link" onclick="window.location.href = rootPath + '/decks'" style="display: none;"><img id="header-decks" class="sg-icon">Decks</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deckbuilder" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-articles").src = rootPath + "/img/articles.png";
+			document.getElementById("header-decks").src = rootPath + "/img/deck.png";
+			document.getElementById("header-deckbuilder").src = rootPath + "/img/deckbuilder.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+
+			// Hide Articles if none exist
+			fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-articles-link').style.display = 'flex';
+				}).catch(() => {});
+
+			// Hide Decks if none exist
+			fetch(rootPath + '/decks.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-decks-link').style.display = 'flex';
+				}).catch(() => {});
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/PIK"><img src="../sets/PIK-files/icon.png">Pikmin</a>
+	
+		<a class="set-bar inactive" href="../previews/HOK"><img src="../sets/HOK-files/icon.png"></a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/PIK-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets\PIK-files\img\195.png" id="PIK_195" data-flag="@X" onclick="openSidebar('PIK_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\202.png" id="PIK_202" data-flag="@X" onclick="openSidebar('PIK_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\213.png" id="PIK_213" data-flag="@X" onclick="openSidebar('PIK_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\228.png" id="PIK_228" data-flag="@X" onclick="openSidebar('PIK_228',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\183.png" id="PIK_183" data-flag="@X" onclick="openSidebar('PIK_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\198.png" id="PIK_198" data-flag="@X" onclick="openSidebar('PIK_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\208.png" id="PIK_208" data-flag="@X" onclick="openSidebar('PIK_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\212.png" id="PIK_212" data-flag="@X" onclick="openSidebar('PIK_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\227.png" id="PIK_227" data-flag="@X" onclick="openSidebar('PIK_227',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\239.png" id="PIK_239" data-flag="@X" onclick="openSidebar('PIK_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\74.png" id="PIK_74" data-flag="@X" onclick="openSidebar('PIK_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\59.png" id="PIK_59" data-flag="@X" onclick="openSidebar('PIK_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\217.png" id="PIK_217" data-flag="@X" onclick="openSidebar('PIK_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\229.png" id="PIK_229" data-flag="@X" onclick="openSidebar('PIK_229',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\240.png" id="PIK_240" data-flag="@X" onclick="openSidebar('PIK_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\9.png" id="PIK_9" data-flag="@X" onclick="openSidebar('PIK_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\188.png" id="PIK_188" data-flag="@X" onclick="openSidebar('PIK_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\70.png" id="PIK_70" data-flag="@X" onclick="openSidebar('PIK_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\35.png" id="PIK_35" data-flag="@X" onclick="openSidebar('PIK_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\146.png" id="PIK_146" data-flag="@X" onclick="openSidebar('PIK_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\105.png" id="PIK_105" data-flag="@X" onclick="openSidebar('PIK_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\34.png" id="PIK_34" data-flag="@X" onclick="openSidebar('PIK_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\218.png" id="PIK_218" data-flag="@X" onclick="openSidebar('PIK_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\157.png" id="PIK_157" data-flag="@X" onclick="openSidebar('PIK_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\296.png" id="PIK_296" data-flag="@X" onclick="openSidebar('PIK_296',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\75.png" id="PIK_75" data-flag="@X" onclick="openSidebar('PIK_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\206.png" id="PIK_206" data-flag="@X" onclick="openSidebar('PIK_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\215.png" id="PIK_215" data-flag="@X" onclick="openSidebar('PIK_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\225.png" id="PIK_225" data-flag="@X" onclick="openSidebar('PIK_225',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\270.png" id="PIK_270" data-flag="@X" onclick="openSidebar('PIK_270',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\266.png" id="PIK_266" data-flag="@X" onclick="openSidebar('PIK_266',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\191.png" id="PIK_191" data-flag="@X" onclick="openSidebar('PIK_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\294.png" id="PIK_294" data-flag="@X" onclick="openSidebar('PIK_294',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\216.png" id="PIK_216" data-flag="@X" onclick="openSidebar('PIK_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\241.png" id="PIK_241" data-flag="@X" onclick="openSidebar('PIK_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\196.png" id="PIK_196" data-flag="@X" onclick="openSidebar('PIK_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\205.png" id="PIK_205" data-flag="@X" onclick="openSidebar('PIK_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\107.png" id="PIK_107" data-flag="@X" onclick="openSidebar('PIK_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\159.png" id="PIK_159" data-flag="@X" onclick="openSidebar('PIK_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\78.png" id="PIK_78" data-flag="@X" onclick="openSidebar('PIK_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\200.png" id="PIK_200" data-flag="@X" onclick="openSidebar('PIK_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\67.png" id="PIK_67" data-flag="@X" onclick="openSidebar('PIK_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\128.png" id="PIK_128" data-flag="@X" onclick="openSidebar('PIK_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\232.png" id="PIK_232" data-flag="@X" onclick="openSidebar('PIK_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\242.png" id="PIK_242" data-flag="@X" onclick="openSidebar('PIK_242',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\172.png" id="PIK_172" data-flag="@X" onclick="openSidebar('PIK_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\27.png" id="PIK_27" data-flag="@X" onclick="openSidebar('PIK_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\207.png" id="PIK_207" data-flag="@X" onclick="openSidebar('PIK_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\237.png" id="PIK_237" data-flag="@X" onclick="openSidebar('PIK_237',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\180.png" id="PIK_180" data-flag="@X" onclick="openSidebar('PIK_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\71.png" id="PIK_71" data-flag="@X" onclick="openSidebar('PIK_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\210.png" id="PIK_210" data-flag="@X" onclick="openSidebar('PIK_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\179.png" id="PIK_179" data-flag="@X" onclick="openSidebar('PIK_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\235.png" id="PIK_235" data-flag="@X" onclick="openSidebar('PIK_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\256.png" id="PIK_256" data-flag="@X" onclick="openSidebar('PIK_256',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\42.png" id="PIK_42" data-flag="@X" onclick="openSidebar('PIK_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\192.png" id="PIK_192" data-flag="@X" onclick="openSidebar('PIK_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\221.png" id="PIK_221" data-flag="@X" onclick="openSidebar('PIK_221',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\230.png" id="PIK_230" data-flag="@X" onclick="openSidebar('PIK_230',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\122.png" id="PIK_122" data-flag="@X" onclick="openSidebar('PIK_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\82.png" id="PIK_82" data-flag="@X" onclick="openSidebar('PIK_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\288.png" id="PIK_288" data-flag="@X" onclick="openSidebar('PIK_288',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\43.png" id="PIK_43" data-flag="@X" onclick="openSidebar('PIK_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\81.png" id="PIK_81" data-flag="@X" onclick="openSidebar('PIK_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\79.png" id="PIK_79" data-flag="@X" onclick="openSidebar('PIK_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\110.png" id="PIK_110" data-flag="@X" onclick="openSidebar('PIK_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\80.png" id="PIK_80" data-flag="@X" onclick="openSidebar('PIK_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\29.png" id="PIK_29" data-flag="@X" onclick="openSidebar('PIK_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\38.png" id="PIK_38" data-flag="@X" onclick="openSidebar('PIK_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\170.png" id="PIK_170" data-flag="@X" onclick="openSidebar('PIK_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\92.png" id="PIK_92" data-flag="@X" onclick="openSidebar('PIK_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\57.png" id="PIK_57" data-flag="@X" onclick="openSidebar('PIK_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\95.png" id="PIK_95" data-flag="@X" onclick="openSidebar('PIK_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\220.png" id="PIK_220" data-flag="@X" onclick="openSidebar('PIK_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\41.png" id="PIK_41" data-flag="@X" onclick="openSidebar('PIK_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\201.png" id="PIK_201" data-flag="@X" onclick="openSidebar('PIK_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\182.png" id="PIK_182" data-flag="@X" onclick="openSidebar('PIK_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\69.png" id="PIK_69" data-flag="@X" onclick="openSidebar('PIK_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\117.png" id="PIK_117" data-flag="@X" onclick="openSidebar('PIK_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\243.png" id="PIK_243" data-flag="@X" onclick="openSidebar('PIK_243',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\287.png" id="PIK_287" data-flag="@X" onclick="openSidebar('PIK_287',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\118.png" id="PIK_118" data-flag="@X" onclick="openSidebar('PIK_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\127.png" id="PIK_127" data-flag="@X" onclick="openSidebar('PIK_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\234.png" id="PIK_234" data-flag="@X" onclick="openSidebar('PIK_234',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\289.png" id="PIK_289" data-flag="@X" onclick="openSidebar('PIK_289',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\194.png" id="PIK_194" data-flag="@X" onclick="openSidebar('PIK_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\11.png" id="PIK_11" data-flag="@X" onclick="openSidebar('PIK_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\214.png" id="PIK_214" data-flag="@X" onclick="openSidebar('PIK_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\236.png" id="PIK_236" data-flag="@X" onclick="openSidebar('PIK_236',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\257.png" id="PIK_257" data-flag="@X" onclick="openSidebar('PIK_257',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\160.png" id="PIK_160" data-flag="@X" onclick="openSidebar('PIK_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\203.png" id="PIK_203" data-flag="@X" onclick="openSidebar('PIK_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\83.png" id="PIK_83" data-flag="@X" onclick="openSidebar('PIK_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\238.png" id="PIK_238" data-flag="@X" onclick="openSidebar('PIK_238',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\260.png" id="PIK_260" data-flag="@X" onclick="openSidebar('PIK_260',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\76.png" id="PIK_76" data-flag="@X" onclick="openSidebar('PIK_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\209.png" id="PIK_209" data-flag="@X" onclick="openSidebar('PIK_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\186.png" id="PIK_186" data-flag="@X" onclick="openSidebar('PIK_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\116.png" id="PIK_116" data-flag="@X" onclick="openSidebar('PIK_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\259.png" id="PIK_259" data-flag="@X" onclick="openSidebar('PIK_259',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\125.png" id="PIK_125" data-flag="@X" onclick="openSidebar('PIK_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\32.png" id="PIK_32" data-flag="@X" onclick="openSidebar('PIK_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\219.png" id="PIK_219" data-flag="@X" onclick="openSidebar('PIK_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\15.png" id="PIK_15" data-flag="@X" onclick="openSidebar('PIK_15',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\262.png" id="PIK_262" data-flag="@X" onclick="openSidebar('PIK_262',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\161.png" id="PIK_161" data-flag="@X" onclick="openSidebar('PIK_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\96.png" id="PIK_96" data-flag="@X" onclick="openSidebar('PIK_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\123.png" id="PIK_123" data-flag="@X" onclick="openSidebar('PIK_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\233.png" id="PIK_233" data-flag="@X" onclick="openSidebar('PIK_233',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\130.png" id="PIK_130" data-flag="@X" onclick="openSidebar('PIK_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\265.png" id="PIK_265" data-flag="@X" onclick="openSidebar('PIK_265',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\152.png" id="PIK_152" data-flag="@X" onclick="openSidebar('PIK_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\28.png" id="PIK_28" data-flag="@X" onclick="openSidebar('PIK_28',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\226.png" id="PIK_226" data-flag="@X" onclick="openSidebar('PIK_226',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\48.png" id="PIK_48" data-flag="@X" onclick="openSidebar('PIK_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\120.png" id="PIK_120" data-flag="@X" onclick="openSidebar('PIK_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\93.png" id="PIK_93" data-flag="@X" onclick="openSidebar('PIK_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\174.png" id="PIK_174" data-flag="@X" onclick="openSidebar('PIK_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\51.png" id="PIK_51" data-flag="@X" onclick="openSidebar('PIK_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\0.png" id="PIK_0" data-flag="@X" onclick="openSidebar('PIK_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\124.png" id="PIK_124" data-flag="@X" onclick="openSidebar('PIK_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\126.png" id="PIK_126" data-flag="@X" onclick="openSidebar('PIK_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\106.png" id="PIK_106" data-flag="@X" onclick="openSidebar('PIK_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\132.png" id="PIK_132" data-flag="@X" onclick="openSidebar('PIK_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\89.png" id="PIK_89" data-flag="@X" onclick="openSidebar('PIK_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\267.png" id="PIK_267" data-flag="@X" onclick="openSidebar('PIK_267',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\3.png" id="PIK_3" data-flag="@X" onclick="openSidebar('PIK_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\177.png" id="PIK_177" data-flag="@X" onclick="openSidebar('PIK_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\113.png" id="PIK_113" data-flag="@X" onclick="openSidebar('PIK_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\254.png" id="PIK_254" data-flag="@X" onclick="openSidebar('PIK_254',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\264.png" id="PIK_264" data-flag="@X" onclick="openSidebar('PIK_264',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\211.png" id="PIK_211" data-flag="@X" onclick="openSidebar('PIK_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\94.png" id="PIK_94" data-flag="@X" onclick="openSidebar('PIK_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\44.png" id="PIK_44" data-flag="@X" onclick="openSidebar('PIK_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\13.png" id="PIK_13" data-flag="@X" onclick="openSidebar('PIK_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\52.png" id="PIK_52" data-flag="@X" onclick="openSidebar('PIK_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\73.png" id="PIK_73" data-flag="@X" onclick="openSidebar('PIK_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\184.png" id="PIK_184" data-flag="@X" onclick="openSidebar('PIK_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\158.png" id="PIK_158" data-flag="@X" onclick="openSidebar('PIK_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\150.png" id="PIK_150" data-flag="@X" onclick="openSidebar('PIK_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\199.png" id="PIK_199" data-flag="@X" onclick="openSidebar('PIK_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\112.png" id="PIK_112" data-flag="@X" onclick="openSidebar('PIK_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\185.png" id="PIK_185" data-flag="@X" onclick="openSidebar('PIK_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\231.png" id="PIK_231" data-flag="@X" onclick="openSidebar('PIK_231',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\171.png" id="PIK_171" data-flag="@X" onclick="openSidebar('PIK_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\163.png" id="PIK_163" data-flag="@X" onclick="openSidebar('PIK_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\269.png" id="PIK_269" data-flag="@X" onclick="openSidebar('PIK_269',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\97.png" id="PIK_97" data-flag="@X" onclick="openSidebar('PIK_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\115.png" id="PIK_115" data-flag="@X" onclick="openSidebar('PIK_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\17.png" id="PIK_17" data-flag="@X" onclick="openSidebar('PIK_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\169.png" id="PIK_169" data-flag="@X" onclick="openSidebar('PIK_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\181.png" id="PIK_181" data-flag="@X" onclick="openSidebar('PIK_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\222.png" id="PIK_222" data-flag="@X" onclick="openSidebar('PIK_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\100.png" id="PIK_100" data-flag="@X" onclick="openSidebar('PIK_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\255.png" id="PIK_255" data-flag="@X" onclick="openSidebar('PIK_255',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\268.png" id="PIK_268" data-flag="@X" onclick="openSidebar('PIK_268',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\129.png" id="PIK_129" data-flag="@X" onclick="openSidebar('PIK_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\5.png" id="PIK_5" data-flag="@X" onclick="openSidebar('PIK_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\224.png" id="PIK_224" data-flag="@X" onclick="openSidebar('PIK_224',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\108.png" id="PIK_108" data-flag="@X" onclick="openSidebar('PIK_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\72.png" id="PIK_72" data-flag="@X" onclick="openSidebar('PIK_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\99.png" id="PIK_99" data-flag="@X" onclick="openSidebar('PIK_99',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\4.png" id="PIK_4" data-flag="@X" onclick="openSidebar('PIK_4',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\154.png" id="PIK_154" data-flag="@X" onclick="openSidebar('PIK_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\18.png" id="PIK_18" data-flag="@X" onclick="openSidebar('PIK_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\310.png" id="PIK_310" data-flag="@X" onclick="openSidebar('PIK_310',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\58.png" id="PIK_58" data-flag="@X" onclick="openSidebar('PIK_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\175.png" id="PIK_175" data-flag="@X" onclick="openSidebar('PIK_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\176.png" id="PIK_176" data-flag="@X" onclick="openSidebar('PIK_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\258.png" id="PIK_258" data-flag="@X" onclick="openSidebar('PIK_258',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\65.png" id="PIK_65" data-flag="@X" onclick="openSidebar('PIK_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\156.png" id="PIK_156" data-flag="@X" onclick="openSidebar('PIK_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\153.png" id="PIK_153" data-flag="@X" onclick="openSidebar('PIK_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\223.png" id="PIK_223" data-flag="@X" onclick="openSidebar('PIK_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\300.png" id="PIK_300" data-flag="@X" onclick="openSidebar('PIK_300',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\98.png" id="PIK_98" data-flag="@X" onclick="openSidebar('PIK_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\204.png" id="PIK_204" data-flag="@X" onclick="openSidebar('PIK_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\49.png" id="PIK_49" data-flag="@X" onclick="openSidebar('PIK_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\109.png" id="PIK_109" data-flag="@X" onclick="openSidebar('PIK_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\261.png" id="PIK_261" data-flag="@X" onclick="openSidebar('PIK_261',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\88.png" id="PIK_88" data-flag="@X" onclick="openSidebar('PIK_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\111.png" id="PIK_111" data-flag="@X" onclick="openSidebar('PIK_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\26.png" id="PIK_26" data-flag="@X" onclick="openSidebar('PIK_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\8.png" id="PIK_8" data-flag="@X" onclick="openSidebar('PIK_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\1.png" id="PIK_1" data-flag="@X" onclick="openSidebar('PIK_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\263.png" id="PIK_263" data-flag="@X" onclick="openSidebar('PIK_263',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\20.png" id="PIK_20" data-flag="@X" onclick="openSidebar('PIK_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\178.png" id="PIK_178" data-flag="@X" onclick="openSidebar('PIK_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\101.png" id="PIK_101" data-flag="@X" onclick="openSidebar('PIK_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\253.png" id="PIK_253" data-flag="@X" onclick="openSidebar('PIK_253',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\77.png" id="PIK_77" data-flag="@X" onclick="openSidebar('PIK_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\66.png" id="PIK_66" data-flag="@X" onclick="openSidebar('PIK_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\90.png" id="PIK_90" data-flag="@X" onclick="openSidebar('PIK_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\55.png" id="PIK_55" data-flag="@X" onclick="openSidebar('PIK_55',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\301.png" id="PIK_301" data-flag="@X" onclick="openSidebar('PIK_301',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\47.png" id="PIK_47" data-flag="@X" onclick="openSidebar('PIK_47',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\24.png" id="PIK_24" data-flag="@X" onclick="openSidebar('PIK_24',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\295.png" id="PIK_295" data-flag="@X" onclick="openSidebar('PIK_295',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\308.png" id="PIK_308" data-flag="@X" onclick="openSidebar('PIK_308',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\312.png" id="PIK_312" data-flag="@X" onclick="openSidebar('PIK_312',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\147.png" id="PIK_147" data-flag="@X" onclick="openSidebar('PIK_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\173.png" id="PIK_173" data-flag="@X" onclick="openSidebar('PIK_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\87.png" id="PIK_87" data-flag="@X" onclick="openSidebar('PIK_87',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\131.png" id="PIK_131" data-flag="@X" onclick="openSidebar('PIK_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\7.png" id="PIK_7" data-flag="@X" onclick="openSidebar('PIK_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\102.png" id="PIK_102" data-flag="@X" onclick="openSidebar('PIK_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\144.png" id="PIK_144" data-flag="@X" onclick="openSidebar('PIK_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\30.png" id="PIK_30" data-flag="@X" onclick="openSidebar('PIK_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\309.png" id="PIK_309" data-flag="@X" onclick="openSidebar('PIK_309',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\31.png" id="PIK_31" data-flag="@X" onclick="openSidebar('PIK_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\54.png" id="PIK_54" data-flag="@X" onclick="openSidebar('PIK_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\39.png" id="PIK_39" data-flag="@X" onclick="openSidebar('PIK_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\68.png" id="PIK_68" data-flag="@X" onclick="openSidebar('PIK_68',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\103.png" id="PIK_103" data-flag="@X" onclick="openSidebar('PIK_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\143.png" id="PIK_143" data-flag="@X" onclick="openSidebar('PIK_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\12.png" id="PIK_12" data-flag="@X" onclick="openSidebar('PIK_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\21.png" id="PIK_21" data-flag="@X" onclick="openSidebar('PIK_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\298.png" id="PIK_298" data-flag="@X" onclick="openSidebar('PIK_298',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\50.png" id="PIK_50" data-flag="@X" onclick="openSidebar('PIK_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\2.png" id="PIK_2" data-flag="@X" onclick="openSidebar('PIK_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\291.png" id="PIK_291" data-flag="@X" onclick="openSidebar('PIK_291',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\293.png" id="PIK_293" data-flag="@X" onclick="openSidebar('PIK_293',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\162.png" id="PIK_162" data-flag="@X" onclick="openSidebar('PIK_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\292.png" id="PIK_292" data-flag="@X" onclick="openSidebar('PIK_292',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\23.png" id="PIK_23" data-flag="@X" onclick="openSidebar('PIK_23',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\64.png" id="PIK_64" data-flag="@X" onclick="openSidebar('PIK_64',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\25.png" id="PIK_25" data-flag="@X" onclick="openSidebar('PIK_25',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\307.png" id="PIK_307" data-flag="@X" onclick="openSidebar('PIK_307',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\45.png" id="PIK_45" data-flag="@X" onclick="openSidebar('PIK_45',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\36.png" id="PIK_36" data-flag="@X" onclick="openSidebar('PIK_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\305.png" id="PIK_305" data-flag="@X" onclick="openSidebar('PIK_305',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\304.png" id="PIK_304" data-flag="@X" onclick="openSidebar('PIK_304',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\56.png" id="PIK_56" data-flag="@X" onclick="openSidebar('PIK_56',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\190.png" id="PIK_190" data-flag="@X" onclick="openSidebar('PIK_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\306.png" id="PIK_306" data-flag="@X" onclick="openSidebar('PIK_306',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\155.png" id="PIK_155" data-flag="@X" onclick="openSidebar('PIK_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\148.png" id="PIK_148" data-flag="@X" onclick="openSidebar('PIK_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\119.png" id="PIK_119" data-flag="@X" onclick="openSidebar('PIK_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\16.png" id="PIK_16" data-flag="@X" onclick="openSidebar('PIK_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\104.png" id="PIK_104" data-flag="@X" onclick="openSidebar('PIK_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\187.png" id="PIK_187" data-flag="@X" onclick="openSidebar('PIK_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\10.png" id="PIK_10" data-flag="@X" onclick="openSidebar('PIK_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\151.png" id="PIK_151" data-flag="@X" onclick="openSidebar('PIK_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\33.png" id="PIK_33" data-flag="@X" onclick="openSidebar('PIK_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\19.png" id="PIK_19" data-flag="@X" onclick="openSidebar('PIK_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\114.png" id="PIK_114" data-flag="@X" onclick="openSidebar('PIK_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\297.png" id="PIK_297" data-flag="@X" onclick="openSidebar('PIK_297',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\145.png" id="PIK_145" data-flag="@X" onclick="openSidebar('PIK_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\60.png" id="PIK_60" data-flag="@X" onclick="openSidebar('PIK_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\189.png" id="PIK_189" data-flag="@X" onclick="openSidebar('PIK_189',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\6.png" id="PIK_6" data-flag="@X" onclick="openSidebar('PIK_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\197.png" id="PIK_197" data-flag="@X" onclick="openSidebar('PIK_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\63.png" id="PIK_63" data-flag="@X" onclick="openSidebar('PIK_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\61.png" id="PIK_61" data-flag="@X" onclick="openSidebar('PIK_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\302.png" id="PIK_302" data-flag="@X" onclick="openSidebar('PIK_302',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\121.png" id="PIK_121" data-flag="@X" onclick="openSidebar('PIK_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\62.png" id="PIK_62" data-flag="@X" onclick="openSidebar('PIK_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\303.png" id="PIK_303" data-flag="@X" onclick="openSidebar('PIK_303',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\193.png" id="PIK_193" data-flag="@X" onclick="openSidebar('PIK_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\252.png" id="PIK_252" data-flag="@X" onclick="openSidebar('PIK_252',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\320.png" id="PIK_320" data-flag="@X" onclick="openSidebar('PIK_320',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\86.png" id="PIK_86" data-flag="@X" onclick="openSidebar('PIK_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\313.png" id="PIK_313" data-flag="@X" onclick="openSidebar('PIK_313',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\314.png" id="PIK_314" data-flag="@X" onclick="openSidebar('PIK_314',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\318.png" id="PIK_318" data-flag="@X" onclick="openSidebar('PIK_318',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\321.png" id="PIK_321" data-flag="@X" onclick="openSidebar('PIK_321',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\316.png" id="PIK_316" data-flag="@X" onclick="openSidebar('PIK_316',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\315.png" id="PIK_315" data-flag="@X" onclick="openSidebar('PIK_315',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\319.png" id="PIK_319" data-flag="@X" onclick="openSidebar('PIK_319',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\317.png" id="PIK_317" data-flag="@X" onclick="openSidebar('PIK_317',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\85.png" id="PIK_85" data-flag="@X" onclick="openSidebar('PIK_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\91.png" id="PIK_91" data-flag="@X" onclick="openSidebar('PIK_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\37.png" id="PIK_37" data-flag="@X" onclick="openSidebar('PIK_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\164.png" id="PIK_164" data-flag="@X" onclick="openSidebar('PIK_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\22.png" id="PIK_22" data-flag="@X" onclick="openSidebar('PIK_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\165.png" id="PIK_165" data-flag="@X" onclick="openSidebar('PIK_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\251.png" id="PIK_251" data-flag="@X" onclick="openSidebar('PIK_251',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\167.png" id="PIK_167" data-flag="@X" onclick="openSidebar('PIK_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\168.png" id="PIK_168" data-flag="@X" onclick="openSidebar('PIK_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\40.png" id="PIK_40" data-flag="@X" onclick="openSidebar('PIK_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\53.png" id="PIK_53" data-flag="@X" onclick="openSidebar('PIK_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\84.png" id="PIK_84" data-flag="@X" onclick="openSidebar('PIK_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\14.png" id="PIK_14" data-flag="@X" onclick="openSidebar('PIK_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\46.png" id="PIK_46" data-flag="@X" onclick="openSidebar('PIK_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\166.png" id="PIK_166" data-flag="@X" onclick="openSidebar('PIK_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\299.png" id="PIK_299" data-flag="@X" onclick="openSidebar('PIK_299',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\247.png" id="PIK_247" data-flag="@X" onclick="openSidebar('PIK_247',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\244.png" id="PIK_244" data-flag="@X" onclick="openSidebar('PIK_244',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\246.png" id="PIK_246" data-flag="@X" onclick="openSidebar('PIK_246',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\248.png" id="PIK_248" data-flag="@X" onclick="openSidebar('PIK_248',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\245.png" id="PIK_245" data-flag="@X" onclick="openSidebar('PIK_245',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\138.png" id="PIK_138" data-flag="@X" onclick="openSidebar('PIK_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\136.png" id="PIK_136" data-flag="@X" onclick="openSidebar('PIK_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\134.png" id="PIK_134" data-flag="@X" onclick="openSidebar('PIK_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\137.png" id="PIK_137" data-flag="@X" onclick="openSidebar('PIK_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\139.png" id="PIK_139" data-flag="@X" onclick="openSidebar('PIK_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\141.png" id="PIK_141" data-flag="@X" onclick="openSidebar('PIK_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\133.png" id="PIK_133" data-flag="@X" onclick="openSidebar('PIK_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\142.png" id="PIK_142" data-flag="@X" onclick="openSidebar('PIK_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\140.png" id="PIK_140" data-flag="@X" onclick="openSidebar('PIK_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\135.png" id="PIK_135" data-flag="@X" onclick="openSidebar('PIK_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\249.png" id="PIK_249" data-flag="@X" onclick="openSidebar('PIK_249',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\149.png" id="PIK_149" data-flag="@X" onclick="openSidebar('PIK_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\250.png" id="PIK_250" data-flag="@X" onclick="openSidebar('PIK_250',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\290.png" id="PIK_290" data-flag="@X" onclick="openSidebar('PIK_290',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\282.png" id="PIK_282" data-flag="@X" onclick="openSidebar('PIK_282',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\283.png" id="PIK_283" data-flag="@X" onclick="openSidebar('PIK_283',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\284.png" id="PIK_284" data-flag="@X" onclick="openSidebar('PIK_284',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\285.png" id="PIK_285" data-flag="@X" onclick="openSidebar('PIK_285',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\286.png" id="PIK_286" data-flag="@X" onclick="openSidebar('PIK_286',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\311.png" id="PIK_311" data-flag="@X" onclick="openSidebar('PIK_311',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\278.png" id="PIK_278" data-flag="@X" onclick="openSidebar('PIK_278',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\281.png" id="PIK_281" data-flag="@X" onclick="openSidebar('PIK_281',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\279.png" id="PIK_279" data-flag="@X" onclick="openSidebar('PIK_279',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\280.png" id="PIK_280" data-flag="@X" onclick="openSidebar('PIK_280',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\274.png" id="PIK_274" data-flag="@X" onclick="openSidebar('PIK_274',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\272.png" id="PIK_272" data-flag="@X" onclick="openSidebar('PIK_272',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\275.png" id="PIK_275" data-flag="@X" onclick="openSidebar('PIK_275',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\322.png" id="PIK_322" data-flag="@X" onclick="openSidebar('PIK_322',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\276.png" id="PIK_276" data-flag="@X" onclick="openSidebar('PIK_276',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\277.png" id="PIK_277" data-flag="@X" onclick="openSidebar('PIK_277',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\271.png" id="PIK_271" data-flag="@X" onclick="openSidebar('PIK_271',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\PIK-files\img\273.png" id="PIK_273" data-flag="@X" onclick="openSidebar('PIK_273',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="PIK_e" data-flag="@E" onclick="openSidebar('PIK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="PIK_er" data-flag="@E" onclick="openSidebar('PIK_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1].toLowerCase());
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

@@ -4,6 +4,11 @@
             "set_code": "HOK",
             "set_name": "",
             "formats": ""
+        },
+        {
+            "set_code": "PIK",
+            "set_name": "Pikmin",
+            "formats": ""
         }
     ]
 }
