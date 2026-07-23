@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/HOK-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>HOK visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/HOK-files/logo.png" />
+	<img class="preload-hidden" src="../sets/HOK-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a id="header-articles-link" onclick="window.location.href = rootPath + '/all-articles'" style="display: none;"><img id="header-articles" class="sg-icon">Articles</a>
+			<a id="header-decks-link" onclick="window.location.href = rootPath + '/decks'" style="display: none;"><img id="header-decks" class="sg-icon">Decks</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deckbuilder" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-articles").src = rootPath + "/img/articles.png";
+			document.getElementById("header-decks").src = rootPath + "/img/deck.png";
+			document.getElementById("header-deckbuilder").src = rootPath + "/img/deckbuilder.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+
+			// Hide Articles if none exist
+			fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-articles-link').style.display = 'flex';
+				}).catch(() => {});
+
+			// Hide Decks if none exist
+			fetch(rootPath + '/decks.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-decks-link').style.display = 'flex';
+				}).catch(() => {});
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/HOK"><img src="../sets/HOK-files/icon.png"></a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/HOK-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets\HOK-files\img\180.png" id="HOK_180" data-flag="@X" onclick="openSidebar('HOK_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\195.png" id="HOK_195" data-flag="@X" onclick="openSidebar('HOK_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\162.png" id="HOK_162" data-flag="@X" onclick="openSidebar('HOK_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\272.png" id="HOK_272" data-flag="@X" onclick="openSidebar('HOK_272',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\160.png" id="HOK_160" data-flag="@X" onclick="openSidebar('HOK_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\16.png" id="HOK_16" data-flag="@X" onclick="openSidebar('HOK_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\198.png" id="HOK_198" data-flag="@X" onclick="openSidebar('HOK_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\45.png" id="HOK_45" data-flag="@X" onclick="openSidebar('HOK_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\279.png" id="HOK_279" data-flag="@X" onclick="openSidebar('HOK_279',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\89.png" id="HOK_89" data-flag="@X" onclick="openSidebar('HOK_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\179.png" id="HOK_179" data-flag="@X" onclick="openSidebar('HOK_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\263.png" id="HOK_263" data-flag="@X" onclick="openSidebar('HOK_263',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\32.png" id="HOK_32" data-flag="@X" onclick="openSidebar('HOK_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\49.png" id="HOK_49" data-flag="@X" onclick="openSidebar('HOK_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\68.png" id="HOK_68" data-flag="@X" onclick="openSidebar('HOK_68',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\4.png" id="HOK_4" data-flag="@X" onclick="openSidebar('HOK_4',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\194.png" id="HOK_194" data-flag="@X" onclick="openSidebar('HOK_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\35.png" id="HOK_35" data-flag="@X" onclick="openSidebar('HOK_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\52.png" id="HOK_52" data-flag="@X" onclick="openSidebar('HOK_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\70.png" id="HOK_70" data-flag="@X" onclick="openSidebar('HOK_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\184.png" id="HOK_184" data-flag="@X" onclick="openSidebar('HOK_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\25.png" id="HOK_25" data-flag="@X" onclick="openSidebar('HOK_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\36.png" id="HOK_36" data-flag="@X" onclick="openSidebar('HOK_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\271.png" id="HOK_271" data-flag="@X" onclick="openSidebar('HOK_271',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\214.png" id="HOK_214" data-flag="@X" onclick="openSidebar('HOK_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\7.png" id="HOK_7" data-flag="@X" onclick="openSidebar('HOK_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\199.png" id="HOK_199" data-flag="@X" onclick="openSidebar('HOK_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\128.png" id="HOK_128" data-flag="@X" onclick="openSidebar('HOK_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\273.png" id="HOK_273" data-flag="@X" onclick="openSidebar('HOK_273',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\75.png" id="HOK_75" data-flag="@X" onclick="openSidebar('HOK_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\10.png" id="HOK_10" data-flag="@X" onclick="openSidebar('HOK_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\200.png" id="HOK_200" data-flag="@X" onclick="openSidebar('HOK_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\201.png" id="HOK_201" data-flag="@X" onclick="openSidebar('HOK_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\57.png" id="HOK_57" data-flag="@X" onclick="openSidebar('HOK_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\280.png" id="HOK_280" data-flag="@X" onclick="openSidebar('HOK_280',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\11.png" id="HOK_11" data-flag="@X" onclick="openSidebar('HOK_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\266.png" id="HOK_266" data-flag="@X" onclick="openSidebar('HOK_266',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\39.png" id="HOK_39" data-flag="@X" onclick="openSidebar('HOK_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\59.png" id="HOK_59" data-flag="@X" onclick="openSidebar('HOK_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\281.png" id="HOK_281" data-flag="@X" onclick="openSidebar('HOK_281',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\12.png" id="HOK_12" data-flag="@X" onclick="openSidebar('HOK_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\166.png" id="HOK_166" data-flag="@X" onclick="openSidebar('HOK_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\206.png" id="HOK_206" data-flag="@X" onclick="openSidebar('HOK_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\61.png" id="HOK_61" data-flag="@X" onclick="openSidebar('HOK_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\303.png" id="HOK_303" data-flag="@X" onclick="openSidebar('HOK_303',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\18.png" id="HOK_18" data-flag="@X" onclick="openSidebar('HOK_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\261.png" id="HOK_261" data-flag="@X" onclick="openSidebar('HOK_261',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\43.png" id="HOK_43" data-flag="@X" onclick="openSidebar('HOK_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\65.png" id="HOK_65" data-flag="@X" onclick="openSidebar('HOK_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\86.png" id="HOK_86" data-flag="@X" onclick="openSidebar('HOK_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\177.png" id="HOK_177" data-flag="@X" onclick="openSidebar('HOK_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\21.png" id="HOK_21" data-flag="@X" onclick="openSidebar('HOK_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\33.png" id="HOK_33" data-flag="@X" onclick="openSidebar('HOK_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\148.png" id="HOK_148" data-flag="@X" onclick="openSidebar('HOK_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\69.png" id="HOK_69" data-flag="@X" onclick="openSidebar('HOK_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\182.png" id="HOK_182" data-flag="@X" onclick="openSidebar('HOK_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\247.png" id="HOK_247" data-flag="@X" onclick="openSidebar('HOK_247',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\34.png" id="HOK_34" data-flag="@X" onclick="openSidebar('HOK_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\275.png" id="HOK_275" data-flag="@X" onclick="openSidebar('HOK_275',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\217.png" id="HOK_217" data-flag="@X" onclick="openSidebar('HOK_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\2.png" id="HOK_2" data-flag="@X" onclick="openSidebar('HOK_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\152.png" id="HOK_152" data-flag="@X" onclick="openSidebar('HOK_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\159.png" id="HOK_159" data-flag="@X" onclick="openSidebar('HOK_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\268.png" id="HOK_268" data-flag="@X" onclick="openSidebar('HOK_268',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\72.png" id="HOK_72" data-flag="@X" onclick="openSidebar('HOK_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\183.png" id="HOK_183" data-flag="@X" onclick="openSidebar('HOK_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\168.png" id="HOK_168" data-flag="@X" onclick="openSidebar('HOK_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\38.png" id="HOK_38" data-flag="@X" onclick="openSidebar('HOK_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\51.png" id="HOK_51" data-flag="@X" onclick="openSidebar('HOK_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\215.png" id="HOK_215" data-flag="@X" onclick="openSidebar('HOK_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\3.png" id="HOK_3" data-flag="@X" onclick="openSidebar('HOK_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\193.png" id="HOK_193" data-flag="@X" onclick="openSidebar('HOK_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\202.png" id="HOK_202" data-flag="@X" onclick="openSidebar('HOK_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\54.png" id="HOK_54" data-flag="@X" onclick="openSidebar('HOK_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\76.png" id="HOK_76" data-flag="@X" onclick="openSidebar('HOK_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\5.png" id="HOK_5" data-flag="@X" onclick="openSidebar('HOK_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\264.png" id="HOK_264" data-flag="@X" onclick="openSidebar('HOK_264',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\164.png" id="HOK_164" data-flag="@X" onclick="openSidebar('HOK_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\56.png" id="HOK_56" data-flag="@X" onclick="openSidebar('HOK_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\77.png" id="HOK_77" data-flag="@X" onclick="openSidebar('HOK_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\6.png" id="HOK_6" data-flag="@X" onclick="openSidebar('HOK_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\265.png" id="HOK_265" data-flag="@X" onclick="openSidebar('HOK_265',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\269.png" id="HOK_269" data-flag="@X" onclick="openSidebar('HOK_269',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\58.png" id="HOK_58" data-flag="@X" onclick="openSidebar('HOK_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\171.png" id="HOK_171" data-flag="@X" onclick="openSidebar('HOK_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\222.png" id="HOK_222" data-flag="@X" onclick="openSidebar('HOK_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\157.png" id="HOK_157" data-flag="@X" onclick="openSidebar('HOK_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\204.png" id="HOK_204" data-flag="@X" onclick="openSidebar('HOK_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\60.png" id="HOK_60" data-flag="@X" onclick="openSidebar('HOK_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\80.png" id="HOK_80" data-flag="@X" onclick="openSidebar('HOK_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\185.png" id="HOK_185" data-flag="@X" onclick="openSidebar('HOK_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\259.png" id="HOK_259" data-flag="@X" onclick="openSidebar('HOK_259',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\207.png" id="HOK_207" data-flag="@X" onclick="openSidebar('HOK_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\278.png" id="HOK_278" data-flag="@X" onclick="openSidebar('HOK_278',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\82.png" id="HOK_82" data-flag="@X" onclick="openSidebar('HOK_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\9.png" id="HOK_9" data-flag="@X" onclick="openSidebar('HOK_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\192.png" id="HOK_192" data-flag="@X" onclick="openSidebar('HOK_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\163.png" id="HOK_163" data-flag="@X" onclick="openSidebar('HOK_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\147.png" id="HOK_147" data-flag="@X" onclick="openSidebar('HOK_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\83.png" id="HOK_83" data-flag="@X" onclick="openSidebar('HOK_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\14.png" id="HOK_14" data-flag="@X" onclick="openSidebar('HOK_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\26.png" id="HOK_26" data-flag="@X" onclick="openSidebar('HOK_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\158.png" id="HOK_158" data-flag="@X" onclick="openSidebar('HOK_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\63.png" id="HOK_63" data-flag="@X" onclick="openSidebar('HOK_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\277.png" id="HOK_277" data-flag="@X" onclick="openSidebar('HOK_277',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\15.png" id="HOK_15" data-flag="@X" onclick="openSidebar('HOK_15',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\27.png" id="HOK_27" data-flag="@X" onclick="openSidebar('HOK_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\208.png" id="HOK_208" data-flag="@X" onclick="openSidebar('HOK_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\276.png" id="HOK_276" data-flag="@X" onclick="openSidebar('HOK_276',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\85.png" id="HOK_85" data-flag="@X" onclick="openSidebar('HOK_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\20.png" id="HOK_20" data-flag="@X" onclick="openSidebar('HOK_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\153.png" id="HOK_153" data-flag="@X" onclick="openSidebar('HOK_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\209.png" id="HOK_209" data-flag="@X" onclick="openSidebar('HOK_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\64.png" id="HOK_64" data-flag="@X" onclick="openSidebar('HOK_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\161.png" id="HOK_161" data-flag="@X" onclick="openSidebar('HOK_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\181.png" id="HOK_181" data-flag="@X" onclick="openSidebar('HOK_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\22.png" id="HOK_22" data-flag="@X" onclick="openSidebar('HOK_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\29.png" id="HOK_29" data-flag="@X" onclick="openSidebar('HOK_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\48.png" id="HOK_48" data-flag="@X" onclick="openSidebar('HOK_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\67.png" id="HOK_67" data-flag="@X" onclick="openSidebar('HOK_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\8.png" id="HOK_8" data-flag="@X" onclick="openSidebar('HOK_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\23.png" id="HOK_23" data-flag="@X" onclick="openSidebar('HOK_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\30.png" id="HOK_30" data-flag="@X" onclick="openSidebar('HOK_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\270.png" id="HOK_270" data-flag="@X" onclick="openSidebar('HOK_270',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\165.png" id="HOK_165" data-flag="@X" onclick="openSidebar('HOK_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\151.png" id="HOK_151" data-flag="@X" onclick="openSidebar('HOK_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\191.png" id="HOK_191" data-flag="@X" onclick="openSidebar('HOK_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\31.png" id="HOK_31" data-flag="@X" onclick="openSidebar('HOK_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\50.png" id="HOK_50" data-flag="@X" onclick="openSidebar('HOK_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\71.png" id="HOK_71" data-flag="@X" onclick="openSidebar('HOK_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\186.png" id="HOK_186" data-flag="@X" onclick="openSidebar('HOK_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\24.png" id="HOK_24" data-flag="@X" onclick="openSidebar('HOK_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\37.png" id="HOK_37" data-flag="@X" onclick="openSidebar('HOK_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\274.png" id="HOK_274" data-flag="@X" onclick="openSidebar('HOK_274',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\216.png" id="HOK_216" data-flag="@X" onclick="openSidebar('HOK_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\187.png" id="HOK_187" data-flag="@X" onclick="openSidebar('HOK_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\311.png" id="HOK_311" data-flag="@X" onclick="openSidebar('HOK_311',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\203.png" id="HOK_203" data-flag="@X" onclick="openSidebar('HOK_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\53.png" id="HOK_53" data-flag="@X" onclick="openSidebar('HOK_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\74.png" id="HOK_74" data-flag="@X" onclick="openSidebar('HOK_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\178.png" id="HOK_178" data-flag="@X" onclick="openSidebar('HOK_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\169.png" id="HOK_169" data-flag="@X" onclick="openSidebar('HOK_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\310.png" id="HOK_310" data-flag="@X" onclick="openSidebar('HOK_310',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\307.png" id="HOK_307" data-flag="@X" onclick="openSidebar('HOK_307',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\308.png" id="HOK_308" data-flag="@X" onclick="openSidebar('HOK_308',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\13.png" id="HOK_13" data-flag="@X" onclick="openSidebar('HOK_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\196.png" id="HOK_196" data-flag="@X" onclick="openSidebar('HOK_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\41.png" id="HOK_41" data-flag="@X" onclick="openSidebar('HOK_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\55.png" id="HOK_55" data-flag="@X" onclick="openSidebar('HOK_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\107.png" id="HOK_107" data-flag="@X" onclick="openSidebar('HOK_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\188.png" id="HOK_188" data-flag="@X" onclick="openSidebar('HOK_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\197.png" id="HOK_197" data-flag="@X" onclick="openSidebar('HOK_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\205.png" id="HOK_205" data-flag="@X" onclick="openSidebar('HOK_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\210.png" id="HOK_210" data-flag="@X" onclick="openSidebar('HOK_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\79.png" id="HOK_79" data-flag="@X" onclick="openSidebar('HOK_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\309.png" id="HOK_309" data-flag="@X" onclick="openSidebar('HOK_309',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\167.png" id="HOK_167" data-flag="@X" onclick="openSidebar('HOK_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\42.png" id="HOK_42" data-flag="@X" onclick="openSidebar('HOK_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\211.png" id="HOK_211" data-flag="@X" onclick="openSidebar('HOK_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\81.png" id="HOK_81" data-flag="@X" onclick="openSidebar('HOK_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\17.png" id="HOK_17" data-flag="@X" onclick="openSidebar('HOK_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\149.png" id="HOK_149" data-flag="@X" onclick="openSidebar('HOK_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\150.png" id="HOK_150" data-flag="@X" onclick="openSidebar('HOK_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\212.png" id="HOK_212" data-flag="@X" onclick="openSidebar('HOK_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\40.png" id="HOK_40" data-flag="@X" onclick="openSidebar('HOK_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\189.png" id="HOK_189" data-flag="@X" onclick="openSidebar('HOK_189',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\262.png" id="HOK_262" data-flag="@X" onclick="openSidebar('HOK_262',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\44.png" id="HOK_44" data-flag="@X" onclick="openSidebar('HOK_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\213.png" id="HOK_213" data-flag="@X" onclick="openSidebar('HOK_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\84.png" id="HOK_84" data-flag="@X" onclick="openSidebar('HOK_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\19.png" id="HOK_19" data-flag="@X" onclick="openSidebar('HOK_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\267.png" id="HOK_267" data-flag="@X" onclick="openSidebar('HOK_267',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\46.png" id="HOK_46" data-flag="@X" onclick="openSidebar('HOK_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\62.png" id="HOK_62" data-flag="@X" onclick="openSidebar('HOK_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\87.png" id="HOK_87" data-flag="@X" onclick="openSidebar('HOK_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\190.png" id="HOK_190" data-flag="@X" onclick="openSidebar('HOK_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\260.png" id="HOK_260" data-flag="@X" onclick="openSidebar('HOK_260',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\47.png" id="HOK_47" data-flag="@X" onclick="openSidebar('HOK_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\66.png" id="HOK_66" data-flag="@X" onclick="openSidebar('HOK_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\88.png" id="HOK_88" data-flag="@X" onclick="openSidebar('HOK_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\282.png" id="HOK_282" data-flag="@X" onclick="openSidebar('HOK_282',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\93.png" id="HOK_93" data-flag="@X" onclick="openSidebar('HOK_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\90.png" id="HOK_90" data-flag="@X" onclick="openSidebar('HOK_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\95.png" id="HOK_95" data-flag="@X" onclick="openSidebar('HOK_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\97.png" id="HOK_97" data-flag="@X" onclick="openSidebar('HOK_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\283.png" id="HOK_283" data-flag="@X" onclick="openSidebar('HOK_283',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\111.png" id="HOK_111" data-flag="@X" onclick="openSidebar('HOK_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\115.png" id="HOK_115" data-flag="@X" onclick="openSidebar('HOK_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\225.png" id="HOK_225" data-flag="@X" onclick="openSidebar('HOK_225',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\221.png" id="HOK_221" data-flag="@X" onclick="openSidebar('HOK_221',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\224.png" id="HOK_224" data-flag="@X" onclick="openSidebar('HOK_224',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\122.png" id="HOK_122" data-flag="@X" onclick="openSidebar('HOK_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\99.png" id="HOK_99" data-flag="@X" onclick="openSidebar('HOK_99',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\120.png" id="HOK_120" data-flag="@X" onclick="openSidebar('HOK_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\113.png" id="HOK_113" data-flag="@X" onclick="openSidebar('HOK_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\285.png" id="HOK_285" data-flag="@X" onclick="openSidebar('HOK_285',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\121.png" id="HOK_121" data-flag="@X" onclick="openSidebar('HOK_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\92.png" id="HOK_92" data-flag="@X" onclick="openSidebar('HOK_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\218.png" id="HOK_218" data-flag="@X" onclick="openSidebar('HOK_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\116.png" id="HOK_116" data-flag="@X" onclick="openSidebar('HOK_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\284.png" id="HOK_284" data-flag="@X" onclick="openSidebar('HOK_284',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\229.png" id="HOK_229" data-flag="@X" onclick="openSidebar('HOK_229',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\228.png" id="HOK_228" data-flag="@X" onclick="openSidebar('HOK_228',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\119.png" id="HOK_119" data-flag="@X" onclick="openSidebar('HOK_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\118.png" id="HOK_118" data-flag="@X" onclick="openSidebar('HOK_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\131.png" id="HOK_131" data-flag="@X" onclick="openSidebar('HOK_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\134.png" id="HOK_134" data-flag="@X" onclick="openSidebar('HOK_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\135.png" id="HOK_135" data-flag="@X" onclick="openSidebar('HOK_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\132.png" id="HOK_132" data-flag="@X" onclick="openSidebar('HOK_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\133.png" id="HOK_133" data-flag="@X" onclick="openSidebar('HOK_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\105.png" id="HOK_105" data-flag="@X" onclick="openSidebar('HOK_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\112.png" id="HOK_112" data-flag="@X" onclick="openSidebar('HOK_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\123.png" id="HOK_123" data-flag="@X" onclick="openSidebar('HOK_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\104.png" id="HOK_104" data-flag="@X" onclick="openSidebar('HOK_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\94.png" id="HOK_94" data-flag="@X" onclick="openSidebar('HOK_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\98.png" id="HOK_98" data-flag="@X" onclick="openSidebar('HOK_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\219.png" id="HOK_219" data-flag="@X" onclick="openSidebar('HOK_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\100.png" id="HOK_100" data-flag="@X" onclick="openSidebar('HOK_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\231.png" id="HOK_231" data-flag="@X" onclick="openSidebar('HOK_231',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\109.png" id="HOK_109" data-flag="@X" onclick="openSidebar('HOK_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\91.png" id="HOK_91" data-flag="@X" onclick="openSidebar('HOK_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\125.png" id="HOK_125" data-flag="@X" onclick="openSidebar('HOK_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\103.png" id="HOK_103" data-flag="@X" onclick="openSidebar('HOK_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\220.png" id="HOK_220" data-flag="@X" onclick="openSidebar('HOK_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\154.png" id="HOK_154" data-flag="@X" onclick="openSidebar('HOK_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\232.png" id="HOK_232" data-flag="@X" onclick="openSidebar('HOK_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\248.png" id="HOK_248" data-flag="@X" onclick="openSidebar('HOK_248',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\106.png" id="HOK_106" data-flag="@X" onclick="openSidebar('HOK_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\108.png" id="HOK_108" data-flag="@X" onclick="openSidebar('HOK_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\227.png" id="HOK_227" data-flag="@X" onclick="openSidebar('HOK_227',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\126.png" id="HOK_126" data-flag="@X" onclick="openSidebar('HOK_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="HOK_e" data-flag="@E" onclick="openSidebar('HOK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\96.png" id="HOK_96" data-flag="@X" onclick="openSidebar('HOK_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\129.png" id="HOK_129" data-flag="@X" onclick="openSidebar('HOK_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\73.png" id="HOK_73" data-flag="@X" onclick="openSidebar('HOK_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\130.png" id="HOK_130" data-flag="@X" onclick="openSidebar('HOK_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="HOK_e" data-flag="@E" onclick="openSidebar('HOK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\127.png" id="HOK_127" data-flag="@X" onclick="openSidebar('HOK_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="HOK_e" data-flag="@E" onclick="openSidebar('HOK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="HOK_e" data-flag="@E" onclick="openSidebar('HOK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\101.png" id="HOK_101" data-flag="@X" onclick="openSidebar('HOK_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\289.png" id="HOK_289" data-flag="@X" onclick="openSidebar('HOK_289',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\102.png" id="HOK_102" data-flag="@X" onclick="openSidebar('HOK_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\114.png" id="HOK_114" data-flag="@X" onclick="openSidebar('HOK_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\290.png" id="HOK_290" data-flag="@X" onclick="openSidebar('HOK_290',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\230.png" id="HOK_230" data-flag="@X" onclick="openSidebar('HOK_230',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\124.png" id="HOK_124" data-flag="@X" onclick="openSidebar('HOK_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\286.png" id="HOK_286" data-flag="@X" onclick="openSidebar('HOK_286',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\223.png" id="HOK_223" data-flag="@X" onclick="openSidebar('HOK_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\287.png" id="HOK_287" data-flag="@X" onclick="openSidebar('HOK_287',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\170.png" id="HOK_170" data-flag="@X" onclick="openSidebar('HOK_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\288.png" id="HOK_288" data-flag="@X" onclick="openSidebar('HOK_288',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\226.png" id="HOK_226" data-flag="@X" onclick="openSidebar('HOK_226',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\117.png" id="HOK_117" data-flag="@X" onclick="openSidebar('HOK_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\236.png" id="HOK_236" data-flag="@X" onclick="openSidebar('HOK_236',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\237.png" id="HOK_237" data-flag="@X" onclick="openSidebar('HOK_237',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\235.png" id="HOK_235" data-flag="@X" onclick="openSidebar('HOK_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\233.png" id="HOK_233" data-flag="@X" onclick="openSidebar('HOK_233',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\234.png" id="HOK_234" data-flag="@X" onclick="openSidebar('HOK_234',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="HOK_e" data-flag="@E" onclick="openSidebar('HOK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\110.png" id="HOK_110" data-flag="@X" onclick="openSidebar('HOK_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="HOK_e" data-flag="@E" onclick="openSidebar('HOK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="HOK_e" data-flag="@E" onclick="openSidebar('HOK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="HOK_e" data-flag="@E" onclick="openSidebar('HOK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="HOK_e" data-flag="@E" onclick="openSidebar('HOK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\140.png" id="HOK_140" data-flag="@X" onclick="openSidebar('HOK_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\306.png" id="HOK_306" data-flag="@X" onclick="openSidebar('HOK_306',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\238.png" id="HOK_238" data-flag="@X" onclick="openSidebar('HOK_238',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\240.png" id="HOK_240" data-flag="@X" onclick="openSidebar('HOK_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\145.png" id="HOK_145" data-flag="@X" onclick="openSidebar('HOK_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\1.png" id="HOK_1" data-flag="@X" onclick="openSidebar('HOK_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\28.png" id="HOK_28" data-flag="@X" onclick="openSidebar('HOK_28',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\138.png" id="HOK_138" data-flag="@X" onclick="openSidebar('HOK_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\141.png" id="HOK_141" data-flag="@X" onclick="openSidebar('HOK_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\239.png" id="HOK_239" data-flag="@X" onclick="openSidebar('HOK_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\156.png" id="HOK_156" data-flag="@X" onclick="openSidebar('HOK_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\0.png" id="HOK_0" data-flag="@X" onclick="openSidebar('HOK_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\136.png" id="HOK_136" data-flag="@X" onclick="openSidebar('HOK_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\137.png" id="HOK_137" data-flag="@X" onclick="openSidebar('HOK_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\139.png" id="HOK_139" data-flag="@X" onclick="openSidebar('HOK_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\142.png" id="HOK_142" data-flag="@X" onclick="openSidebar('HOK_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\143.png" id="HOK_143" data-flag="@X" onclick="openSidebar('HOK_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\155.png" id="HOK_155" data-flag="@X" onclick="openSidebar('HOK_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\144.png" id="HOK_144" data-flag="@X" onclick="openSidebar('HOK_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\146.png" id="HOK_146" data-flag="@X" onclick="openSidebar('HOK_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\241.png" id="HOK_241" data-flag="@X" onclick="openSidebar('HOK_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="HOK_e" data-flag="@E" onclick="openSidebar('HOK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\246.png" id="HOK_246" data-flag="@X" onclick="openSidebar('HOK_246',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\243.png" id="HOK_243" data-flag="@X" onclick="openSidebar('HOK_243',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\244.png" id="HOK_244" data-flag="@X" onclick="openSidebar('HOK_244',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\176.png" id="HOK_176" data-flag="@X" onclick="openSidebar('HOK_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\175.png" id="HOK_175" data-flag="@X" onclick="openSidebar('HOK_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\174.png" id="HOK_174" data-flag="@X" onclick="openSidebar('HOK_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\173.png" id="HOK_173" data-flag="@X" onclick="openSidebar('HOK_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\172.png" id="HOK_172" data-flag="@X" onclick="openSidebar('HOK_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\242.png" id="HOK_242" data-flag="@X" onclick="openSidebar('HOK_242',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\245.png" id="HOK_245" data-flag="@X" onclick="openSidebar('HOK_245',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="HOK_e" data-flag="@E" onclick="openSidebar('HOK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="HOK_e" data-flag="@E" onclick="openSidebar('HOK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\e.png" id="HOK_e" data-flag="@E" onclick="openSidebar('HOK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\249.png" id="HOK_249" data-flag="@X" onclick="openSidebar('HOK_249',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\250.png" id="HOK_250" data-flag="@X" onclick="openSidebar('HOK_250',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\251.png" id="HOK_251" data-flag="@X" onclick="openSidebar('HOK_251',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\252.png" id="HOK_252" data-flag="@X" onclick="openSidebar('HOK_252',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\253.png" id="HOK_253" data-flag="@X" onclick="openSidebar('HOK_253',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\254.png" id="HOK_254" data-flag="@X" onclick="openSidebar('HOK_254',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\255.png" id="HOK_255" data-flag="@X" onclick="openSidebar('HOK_255',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\256.png" id="HOK_256" data-flag="@X" onclick="openSidebar('HOK_256',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\257.png" id="HOK_257" data-flag="@X" onclick="openSidebar('HOK_257',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\258.png" id="HOK_258" data-flag="@X" onclick="openSidebar('HOK_258',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\301.png" id="HOK_301" data-flag="@X" onclick="openSidebar('HOK_301',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\298.png" id="HOK_298" data-flag="@X" onclick="openSidebar('HOK_298',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\305.png" id="HOK_305" data-flag="@X" onclick="openSidebar('HOK_305',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\297.png" id="HOK_297" data-flag="@X" onclick="openSidebar('HOK_297',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\299.png" id="HOK_299" data-flag="@X" onclick="openSidebar('HOK_299',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\293.png" id="HOK_293" data-flag="@X" onclick="openSidebar('HOK_293',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\292.png" id="HOK_292" data-flag="@X" onclick="openSidebar('HOK_292',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\291.png" id="HOK_291" data-flag="@X" onclick="openSidebar('HOK_291',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\302.png" id="HOK_302" data-flag="@X" onclick="openSidebar('HOK_302',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\296.png" id="HOK_296" data-flag="@X" onclick="openSidebar('HOK_296',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\304.png" id="HOK_304" data-flag="@X" onclick="openSidebar('HOK_304',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\300.png" id="HOK_300" data-flag="@X" onclick="openSidebar('HOK_300',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\294.png" id="HOK_294" data-flag="@X" onclick="openSidebar('HOK_294',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\78.png" id="HOK_78" data-flag="@X" onclick="openSidebar('HOK_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets\HOK-files\img\295.png" id="HOK_295" data-flag="@X" onclick="openSidebar('HOK_295',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img\er.png" id="HOK_er" data-flag="@E" onclick="openSidebar('HOK_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1].toLowerCase());
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>
