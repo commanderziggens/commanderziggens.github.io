@@ -1,4 +1,15 @@
-﻿VERSION 1 CHANGELOG
+﻿VERSION 2 CHANGELOG
+====================
+
+
+
+The First Sinner
+rules_text: [i]Rune Rage[/i] — Whenever The First Sinner or enchanted creature attacks, you lose 1 life and draw a card. This permanent deals damage to up to one target creature equal to the number of cards in your hand.
+When The First Sinner dies, if she was a creature, return her to the battlefield. She's an Aura enchantment and gains “Enchant creature you control”. => [i]Rune Rage[/i] — Whenever The First Sinner or enchanted creature attacks, you lose 1 life and draw a card. This permanent deals damage to up to one target creature equal to the number of cards in your hand.
+When The First Sinner dies, if she was a creature, return her to the battlefield. She's an Aura Charm enchantment and gains “Enchant creature you control”.
+
+
+VERSION 1 CHANGELOG
 ====================
 
 First version published.

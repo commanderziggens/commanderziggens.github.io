@@ -3,9 +3,9 @@
 	<sets>
 		<set>
 			<name>HOK</name>
-			<longname></longname>
+			<longname>Hollow Knight</longname>
 			<settype>Custom</settype>
-			<releasedate>2026-07-23</releasedate>
+			<releasedate>2026-07-27</releasedate>
 		</set>
 	</sets>
 	<cards>
@@ -621,7 +621,7 @@ Exile target creature.</text>
 		<card>
 			<name>The First Sinner</name>
 			<text>Rune Rage — Whenever The First Sinner or enchanted creature attacks, you lose 1 life and draw a card. This permanent deals damage to up to one target creature equal to the number of cards in your hand.
-When The First Sinner dies, if she was a creature, return her to the battlefield. She&apos;s an Aura enchantment and gains &quot;Enchant creature you control&quot;.</text>
+When The First Sinner dies, if she was a creature, return her to the battlefield. She&apos;s an Aura Charm enchantment and gains &quot;Enchant creature you control&quot;.</text>
 			<set rarity="rare" picurl="https://commanderziggens.github.io/sets/HOK-files/img/35.png" num="81">HOK</set>
 			<prop>
 				<layout>normal</layout>

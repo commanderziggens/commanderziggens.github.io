@@ -813,7 +813,7 @@
             "number": 81,
             "color_identity": "B",
             "cost": "{2}{B}{B}",
-            "rules_text": "[i]Rune Rage[/i] \u2013 Whenever The First Sinner or enchanted creature attacks, you lose 1 life and draw a card. This permanent deals damage to up to one target creature equal to the number of cards in your hand.\nWhen The First Sinner dies, if she was a creature, return her to the battlefield. She's an Aura enchantment and gains \u201cEnchant creature you control\u201d.",
+            "rules_text": "[i]Rune Rage[/i] \u2013 Whenever The First Sinner or enchanted creature attacks, you lose 1 life and draw a card. This permanent deals damage to up to one target creature equal to the number of cards in your hand.\nWhen The First Sinner dies, if she was a creature, return her to the battlefield. She's an Aura Charm enchantment and gains \u201cEnchant creature you control\u201d.",
             "flavor_text": "[i][/i]",
             "pt": "4/3",
             "special_text": "",
