@@ -1,4 +1,22 @@
-﻿VERSION 4 CHANGELOG
+﻿VERSION 5 CHANGELOG
+====================
+
+Racers' Ring added.
+
+Racer's Ring removed.
+
+Wish: Rite of Rebirth
+rules_text: Whenever one or more creatures die, put a quest counter on this enchantment.
+Remove three quest counters from this enchantment and sacrifice it: Return up to two target creature cards from your graveyard to your hand. => Whenever you attack, put a quest counter on this enchantment.
+Remove three quest counters from this enchantment and sacrifice it: Return up to two target creature cards from your graveyard to your hand.
+
+Teacher's Archives
+rules_text: [i](Islands have {T}: Add {U})[/i]
+{3}{U}, {T}, Sacrifice Teacher's Archives: Target instant or sorcery card in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost. => [i](Islands have {T}: Add {U}.)[/i]
+{3}{U}, {T}, Sacrifice Teacher's Archives: Target instant or sorcery card in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.
+
+
+VERSION 4 CHANGELOG
 ====================
 
 

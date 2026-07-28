@@ -835,7 +835,7 @@ At the beginning of your end step, you may pay any amount of life. If you do, ex
 		</card>
 		<card>
 			<name>Wish: Rite of Rebirth</name>
-			<text>Whenever one or more creatures die, put a quest counter on this enchantment.
+			<text>Whenever you attack, put a quest counter on this enchantment.
 Remove three quest counters from this enchantment and sacrifice it: Return up to two target creature cards from your graveyard to your hand.</text>
 			<set rarity="common" picurl="https://commanderziggens.github.io/sets/HOK-files/img/47.png" num="110">HOK</set>
 			<prop>
@@ -3064,10 +3064,10 @@ II — Exile target creature card from your graveyard. Create a token copy of th
 			<tablerow>0</tablerow>
 		</card>
 		<card>
-			<name>Racer&apos;s Ring</name>
-			<text>Racer&apos;s Ring enters tapped.
+			<name>Racers&apos; Ring</name>
+			<text>Racers&apos; Ring enters tapped.
 {T}: Add {R} or {G}.
-{2}{R}{G}, {T}, Sacrifice Racer&apos;s Ring: Draw a card.</text>
+{2}{R}{G}, {T}, Sacrifice Racers&apos; Ring: Draw a card.</text>
 			<set rarity="common" picurl="https://commanderziggens.github.io/sets/HOK-files/img/173.png" num="284">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -5474,7 +5474,7 @@ Equip {3}</text>
 		</card>
 		<card>
 			<name>Teacher&apos;s Archives</name>
-			<text>(Islands have {T}: Add {U})
+			<text>(Islands have {T}: Add {U}.)
 {3}{U}, {T}, Sacrifice Teacher&apos;s Archives: Target instant or sorcery card in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/312.png" num="286">HOK</set>
 			<prop>

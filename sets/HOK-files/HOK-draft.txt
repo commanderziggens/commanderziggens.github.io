@@ -1731,7 +1731,7 @@
 			}
 		},
 		{
-			"name": "Racer's Ring",
+			"name": "Racers' Ring",
 			"rarity": "common",
 			"mana_cost": "",
 			"type": "Land",
@@ -3391,7 +3391,7 @@
 	8 Runed Reflection
 	8 Oust from Dream
 	8 Botanical Plaza
-	8 Racer's Ring
+	8 Racers' Ring
 	8 Tramway Station
 	8 Waterfront District
 	8 Skybridge Towers
@@ -3472,7 +3472,7 @@
 	8 Runed Reflection
 	8 Oust from Dream
 	8 Botanical Plaza
-	8 Racer's Ring
+	8 Racers' Ring
 	8 Tramway Station
 	8 Waterfront District
 	8 Skybridge Towers
@@ -3677,7 +3677,7 @@
 	2 The Wyrm's Rebirth
 	6 Moss Druid
 	12 Botanical Plaza
-	12 Racer's Ring
+	12 Racers' Ring
 	12 Tramway Station
 	12 Waterfront District
 	12 Skybridge Towers
@@ -3966,7 +3966,7 @@
 	7 The Wyrm's Rebirth
 	15 Moss Druid
 	6 Botanical Plaza
-	6 Racer's Ring
+	6 Racers' Ring
 	6 Tramway Station
 	6 Waterfront District
 	6 Skybridge Towers
