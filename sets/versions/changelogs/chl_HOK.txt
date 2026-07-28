@@ -1,4 +1,26 @@
-﻿VERSION 3 CHANGELOG
+﻿VERSION 4 CHANGELOG
+====================
+
+
+
+The Soul Master's Descent
+rules_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I, II — Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
+III — Each player mills four cards.
+​ => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I — Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
+II, III — Each player mills four cards.
+​
+special_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I, II — Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
+III — Each player mills four cards.
+​ => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I — Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
+II, III — Each player mills four cards.
+​
+
+
+VERSION 3 CHANGELOG
 ====================
 
 Faded Memory Crystal added.
