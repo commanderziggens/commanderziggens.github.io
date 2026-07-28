@@ -49,7 +49,7 @@
     },
     {
         "card_name": "Fayforn, Downy Ancient",
-        "number": 49,
+        "number": 50,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
@@ -129,7 +129,7 @@
     },
     {
         "card_name": "Joni's Blessing",
-        "number": 51,
+        "number": 52,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
@@ -569,7 +569,7 @@
     },
     {
         "card_name": "Farsight",
-        "number": 48,
+        "number": 49,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
@@ -609,7 +609,7 @@
     },
     {
         "card_name": "Howling Wraiths",
-        "number": 50,
+        "number": 51,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
@@ -649,7 +649,7 @@
     },
     {
         "card_name": "Karak Gor",
-        "number": 52,
+        "number": 53,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
@@ -1048,12 +1048,12 @@
         "position": "186"
     },
     {
-        "card_name": "Lifeblood Cocoon",
-        "number": 53,
+        "card_name": "Faded Memory Crystal",
+        "number": 48,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
-        "position": "24"
+        "position": "311"
     },
     {
         "card_name": "Gromling",
@@ -1088,12 +1088,12 @@
         "position": "187"
     },
     {
-        "card_name": "Memory Crystal",
+        "card_name": "Lifeblood Cocoon",
         "number": 54,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
-        "position": "311"
+        "position": "24"
     },
     {
         "card_name": "Muckmaggot Infestation",
@@ -2327,7 +2327,12 @@
         "position": "241"
     },
     {
-        "card_name": "e"
+        "card_name": "Teacher's Archives",
+        "number": 286,
+        "shape": "normal",
+        "set": "HOK",
+        "rotated": false,
+        "position": "312"
     },
     {
         "card_name": "Fungal Wastes",
@@ -2378,7 +2383,7 @@
     },
     {
         "card_name": "Waterfront District",
-        "number": 287,
+        "number": 288,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
@@ -2386,7 +2391,7 @@
     },
     {
         "card_name": "Tramway Station",
-        "number": 286,
+        "number": 287,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
@@ -2473,7 +2478,7 @@
     },
     {
         "card_name": "Swamp",
-        "number": 293,
+        "number": 294,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
@@ -2505,7 +2510,7 @@
     },
     {
         "card_name": "Mountain",
-        "number": 294,
+        "number": 296,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
@@ -2513,7 +2518,7 @@
     },
     {
         "card_name": "Forest",
-        "number": 296,
+        "number": 298,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
@@ -2521,7 +2526,7 @@
     },
     {
         "card_name": "Plains",
-        "number": 288,
+        "number": 290,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
@@ -2529,7 +2534,7 @@
     },
     {
         "card_name": "Swamp",
-        "number": 292,
+        "number": 293,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,
@@ -2537,7 +2542,7 @@
     },
     {
         "card_name": "Island",
-        "number": 290,
+        "number": 292,
         "shape": "normal",
         "set": "HOK",
         "rotated": false,

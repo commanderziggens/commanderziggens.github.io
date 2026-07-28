@@ -1,4 +1,189 @@
-﻿VERSION 2 CHANGELOG
+﻿VERSION 3 CHANGELOG
+====================
+
+Faded Memory Crystal added.
+Teacher's Archives added.
+
+Memory Crystal removed.
+
+Sylphsong
+type: Enchantment — Aura => Enchantment — Aura Charm
+
+Wish: The Lost Fleas
+rules_text: Whenever you attack with two or more creatures, put a quest counter on this enchantment.
+Remove two quest counters from this enchantment and sacrifice it: Create two 1/1 white Insect creature tokens with flying. => Whenever you attack, put a quest counter on this enchantment.
+Remove two quest counters from this enchantment and sacrifice it: Create two 1/1 white Insect creature tokens with flying.
+
+Soul Warrior
+rules_text: {2}{U}: Exile this creature. Return it to the battlefield under its owner's control at the beginning of the next end step.
+{U}: This creature gets +1/-1 until end of turn. => [i]Threshold[/i] — As long as there are seven or more cards in your graveyard, you may cast this spell as though it had flash.
+When Soul Warrior enters, you may cast target instant card with mana value 1 or less from your graveyard without paying its mana cost.
+
+Back to the Bench
+cost: {1}{B} => {B}
+rules_text: Until end of turn, target creature you control gains “When this creature dies, return it to the battlefield tapped under its owner's control.”
+Return target creature card from your graveyard to your hand. => Until end of turn, target creature you control gains “When this creature dies, return it to the battlefield tapped under its owner's control.”
+Flashback {2}{B} [i](You may cast this card from your graveyard for its flashback cost. Then exile it.)[/i]
+
+Wish: The Terrible Tyrant
+rules_text: Whenever a creature with the greatest power an opponent controls dies, put a quest counter on this enchantment.
+Remove a quest counter from this enchantment and sacrifice it: Destroy up to two target artifacts. => Whenever you attack, put a quest counter on this enchantment.
+Remove two quest counters from this enchantment and sacrifice it: Destroy up to two target artifacts.
+
+Goam
+type: Creature — Insect => Creature — Worm Beast
+
+Moss Charger
+rules_text: Haste
+Tap another untapped creature you control: This creature can't be blocked by more than one creature this turn. => Haste
+As long as this creature is modified, it can't be blocked by more than one creature. [i](Equipment, Auras you control, and counters are modifications.)[/i]
+
+Volatile Mosskin
+rules_text: {2}, Sacrifice this creature: Draw a card.
+When this creature dies, add {R}{R}. => {2}, Sacrifice this creature: Draw a card.
+When this creature dies, if it was modified, add {G}{G}{G}. [i](Equipment, Auras you control, and counters are modifications.)[/i]
+
+Phantom, Discarded by Silk
+rules_text: [i]Cross Stitch —[/i] As long as Phantom is attacking, whenever they would be dealt damage, prevent that damage. If damage is prevented this way, Phantom deals that much damage to any target.
+{1}{R}: Target creature must block Phantom this turn if able. => [i]Cross Stitch —[/i] As long as Phantom is attacking, prevent all combat damage that would be dealt to them. Whenever damage is prevented this way, Phantom deals damage equal to their power to any other target.
+{1}{B}{R}: Target creature must block Phantom this turn if able.
+
+Lost Lace
+rules_text: At the beginning of your upkeep, Lost Lace deals 1 damage to each player.
+{0}: The next spell you cast this turn costs {X} less to cast, where X is the total amount of life players have lost this turn. Activate this ability only once each turn. => At the beginning of your upkeep, each player loses 1 life.
+{0}: The next spell you cast this turn costs {X} less to cast, where X is the total amount of life players have lost this turn. Activate this ability only if your life total is 10 or less and only once each turn.
+
+The Wyrm's Rebirth
+rules_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after II.)[/i]
+Each player sacrifices a creature. You gain 1 life for each creature sacrificed this way.
+Exile target creature card from your graveyard. Create a token copy of that creature, except its power and toughness is 1/1.
+​ => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after II.)[/i]
+I — Each player sacrifices a creature. You gain 1 life for each creature sacrificed this way.
+II — Exile target creature card from your graveyard. Create a token copy of that creature, except its power and toughness is 1/1.
+​
+special_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after II.)[/i]
+Each player sacrifices a creature. You gain 1 life for each creature sacrificed this way.
+Exile target creature card from your graveyard. Create a token copy of that creature, except its power and toughness is 1/1.
+​ => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after II.)[/i]
+I — Each player sacrifices a creature. You gain 1 life for each creature sacrificed this way.
+II — Exile target creature card from your graveyard. Create a token copy of that creature, except its power and toughness is 1/1.
+​
+
+The Binding of Silk
+rules_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Exile target creature until this Saga leaves the battlefield.
+Create two 1/2 black Spider creature tokens with reach.
+Draw a card.
+You may tap two untapped creatures you control. If you do, remove a lore counter from this Saga. => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I — Exile target creature until this Saga leaves the battlefield.
+Create two 1/2 black Spider creature tokens with reach.
+II — Draw a card.
+You may tap two untapped creatures you control. If you do, remove a lore counter from this Saga.
+special_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Exile target creature until this Saga leaves the battlefield.
+Create two 1/2 black Spider creature tokens with reach.
+Draw a card.
+You may tap two untapped creatures you control. If you do, remove a lore counter from this Saga. => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I — Exile target creature until this Saga leaves the battlefield.
+Create two 1/2 black Spider creature tokens with reach.
+II — Draw a card.
+You may tap two untapped creatures you control. If you do, remove a lore counter from this Saga.
+
+Snared Silk
+rules_text: Counter target spell or ability. Its controller mills four cards.
+[i]Threshold[/i] — As long as there are seven or more cards in your graveyard, this spell costs {3} less to cast. => Counter target spell activated ability, or triggered ability.
+[i]Threshold[/i] — As long as there are seven or more cards in your graveyard, this spell costs {3} less to cast.
+
+The Soul Master's Descent
+rules_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
+Each player mills four cards.
+​ => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I, II — Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
+III — Each player mills four cards.
+​
+special_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
+Each player mills four cards.
+​ => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I, II — Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
+III — Each player mills four cards.
+​
+
+Ordaining the Vessel
+rules_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Create a 2/2 black Shade creature token.
+Put two +1/+1 counters on target creature you control. It's a Knight in addition to its other types.
+Exile target permanent with mana value 4 or greater. => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I — Create a 2/2 black Shade creature token.
+Put two +1/+1 counters on target creature you control. It's a Knight in addition to its other types.
+II — Exile target permanent with mana value 4 or greater.
+special_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Create a 2/2 black Shade creature token.
+Put two +1/+1 counters on target creature you control. It's a Knight in addition to its other types.
+Exile target permanent with mana value 4 or greater. => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I — Create a 2/2 black Shade creature token.
+Put two +1/+1 counters on target creature you control. It's a Knight in addition to its other types.
+II — Exile target permanent with mana value 4 or greater.
+
+Quirrel's Journey
+rules_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Exile another target nonland permanent. Return it to the battlefield under its owner's control at the beginning of the next end step.
+Target creature you control gets +1/+1 and gains lifelink until end of turn.
+III — Create a Mask token attached to target creature you control. => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I, II — Exile another target nonland permanent. Return it to the battlefield under its owner's control at the beginning of the next end step.
+Target creature you control gets +1/+0 and gains first strike until end of turn.
+III — Create a Mask token attached to target creature you control.
+special_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Exile another target nonland permanent. Return it to the battlefield under its owner's control at the beginning of the next end step.
+Target creature you control gets +1/+1 and gains lifelink until end of turn.
+III — Create a Mask token attached to target creature you control. => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I, II — Exile another target nonland permanent. Return it to the battlefield under its owner's control at the beginning of the next end step.
+Target creature you control gets +1/+0 and gains first strike until end of turn.
+III — Create a Mask token attached to target creature you control.
+
+Howling Wraiths
+rules_text: Choose two. You may choose the same mode more than once —
+• Return target creature to its owner's hand.
+• Exile target creature, then return it to the battlefield under its owner's control.
+• Draw two cards, then discard a card.
+• Return target spell to its owner's hand. => Choose two. You may choose the same mode more than once —
+• Counter target activated or triggered ability unless its controller pays {2}.
+• Exile target creature, then return it to the battlefield under its owner's control.
+• Draw two cards, then discard a card.
+• Target player mills 4 cards.
+
+Radical Treatment
+rules_text: For each modified creature you control, exile a permanent attached to it. If you do, reveal cards from the top of your library until you reveal a card that shares a card type with the exiled card and put it on the battlefield attached to that creature, then shuffle. [i](Equipment, Auras you control, and counters are modifications.)[/i] => For each modified creature you control, you may exile a permanent attached to it. If you do, reveal cards from the top of your library until you reveal an Equipment card or Aura card that could enchant that creature and put it on the battlefield attached to it, then shuffle. [i](Equipment, Auras you control, and counters are modifications.)[/i]
+
+Savage Beastfly
+rules_text: Flying
+Whenever this creature becomes the target of a spell or ability an opponent controls or is dealt damage, you may put a creature card from your hand onto the battlefield. That creature gains haste. Sacrifice it at the beginning of your next end step. => Flying
+Whenever this creature becomes the target of a spell or ability an opponent controls, you may put a creature card from your hand onto the battlefield. That creature gains haste. Sacrifice it at the beginning of your next end step.
+
+Transmogrified Plasmid
+type: Creature — Insect Mutant => Creature — Worm Mutant
+
+Silkshot
+cost: {3} => {2}
+rules_text: Silkshot enters with three hone counters and your choice of a first strike, haste, or trample counter on it.
+Equipped creature has all abilities of ability counters on Silkshot and “Whenever this creature deals combat damage to a player, draw a card.”
+Equip {2} => Silkshot enters with your choice of a haste, vigilance, or trample counter on it.
+Equipped creature has all abilities of ability counters on Silkshot.
+{2}: Put a hone counter on Silkshot.
+Equip {2}
+
+Flintslate
+type: Artifact — Equipment => Artifact — Equipment Charm
+
+Mantis Claw
+type: Artifact — Equipment => Artifact — Equipment Charm
+
+Pollip Pouch
+type: Artifact — Equipment => Artifact — Equipment Charm
+
+
+VERSION 2 CHANGELOG
 ====================
 
 
