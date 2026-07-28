@@ -5,7 +5,7 @@
 			<name>HOK</name>
 			<longname>Hollow Knight</longname>
 			<settype>Custom</settype>
-			<releasedate>2026-07-27</releasedate>
+			<releasedate>2026-07-28</releasedate>
 		</set>
 	</sets>
 	<cards>
@@ -465,7 +465,7 @@ Flashback— Sacrifice a nontoken Historic permanent.</text>
 		<card>
 			<name>Soul Warrior</name>
 			<text>Threshold — As long as there are seven or more cards in your graveyard, you may cast this spell as though it had flash.
-When Soul Warrior enters, you may cast target instant card with mana value 1 or less from your graveyard without paying its mana cost.</text>
+When Soul Warrior enters, you may cast target instant card with mana value 1 or less from your graveyard without paying its mana cost. Exile it as it resolves.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/26.png" num="64">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -927,7 +927,7 @@ Threshold — As long as there are seven or more cards in your graveyard, whenev
 		<card>
 			<name>Father of the Flame</name>
 			<text>As an additional cost to cast this spell, sacrifice a creature.
-At the beginning of your upkeep, exile a creature card from your graveyard. Add an amount of {R} equal to the exiled card&apos;s mana value. Until end of turn, you don&apos;t lose this mana as steps and phases end.
+At the beginning of your first main phase, exile a creature card from your graveyard. Add an amount of {R} equal its mana value.
 {R}: Exile the top card of your library. You may play that card this turn.</text>
 			<set rarity="rare" picurl="https://commanderziggens.github.io/sets/HOK-files/img/52.png" num="120">HOK</set>
 			<prop>
@@ -1904,7 +1904,7 @@ The Last Judge can&apos;t be blocked by more than one creature.</text>
 			<name>Disgraced Chef Lugoli</name>
 			<text>Flying
 Whenever you gain life, put a +1/+1 counter on target creature. It deals combat damage equal to its toughness rather than its power this turn. This triggers only once each turn.
-{1}, {T}: Exile target creature card from a graveyard. If a card is exiled this way, create two Food tokens.</text>
+{1}, {T}: Exile target creature card from a graveyard. Create two Food tokens.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/106.png" num="188">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -3184,7 +3184,7 @@ Whenever Cage in Runes becomes the target of a spell or ability an opponent cont
 			<name>The Binding of Silk</name>
 			<text>(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)
 Exile target creature until this Saga leaves the battlefield.
-Create two 1/2 black Spider creature tokens with reach.
+Create a 1/2 black Spider creature token with reach.
 Draw a card.
 You may tap two untapped creatures you control. If you do, remove a lore counter from this Saga.</text>
 			<set rarity="mythic" picurl="https://commanderziggens.github.io/sets/HOK-files/img/180.png" num="4">HOK</set>
@@ -3236,8 +3236,8 @@ If you control an enchantment, put a +1/+1 counter on that creature and you draw
 		</card>
 		<card>
 			<name>Grand Reed</name>
-			<text>When this creature enters, create a Mask token attached to it.
-Double strike
+			<text>Double strike
+When this creature enters, create a Mask token attached to it.
 When this creature dies, Create a Map token.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/183.png" num="9">HOK</set>
 			<prop>
@@ -5459,7 +5459,7 @@ Equip {2}</text>
 		</card>
 		<card>
 			<name>Faded Memory Crystal</name>
-			<text>When this Equipment enters, draw a card, then you may discard a card. If you discard a card this way, attach this Equipment to target creature you control.
+			<text>When this Equipment enters, draw a card, then you may discard a card. If you discard a card this way, attach this Equipment to a creature you control.
 Equipped creature gets +1/+1 and has hexproof.
 Equip {3}</text>
 			<set rarity="common" picurl="https://commanderziggens.github.io/sets/HOK-files/img/311.png" num="48">HOK</set>
