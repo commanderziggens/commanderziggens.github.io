@@ -289,7 +289,7 @@ At the beginning of your end step, you gain life equal to enchanted creature&apo
 		</card>
 		<card>
 			<name>The Trials of Godhome</name>
-			<text>Exile up to three target creature cards from among creatures you control and your graveyard. Create a token copy of each card exiled this way. They&apos;re enchantments in addition to their other types and have &quot;When this creature leaves the battlefield, put a creature card you own in exile with the same name as this creature onto the battlefield under your control.&quot;</text>
+			<text>Exile up to three target creature cards from among creatures you control and your graveyard. Create a token that&apos;s a copy of each card exiled this way. They&apos;re enchantments in addition to their other types and have &quot;When this creature leaves the battlefield, put a creature card you own in exile with the same name as this creature onto the battlefield under your control.&quot;</text>
 			<set rarity="mythic" picurl="https://commanderziggens.github.io/sets/HOK-files/img/16.png" num="32">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -324,7 +324,7 @@ Create a Map token. (It&apos;s an artifact with &quot;{1}, {T}, Sacrifice this t
 			<name>The White Lady</name>
 			<text>The White Lady&apos;s power and toughness are each equal to the number of creatures you control.
 As long as you control five or more creatures, The White Lady has hexproof and defender.
-{2}{B}, {T}: Create a 2/2 black Shade creature token.</text>
+{2}{W}, {T}: Create a 2/2 black Shade creature token.</text>
 			<set rarity="rare" picurl="https://commanderziggens.github.io/sets/HOK-files/img/18.png" num="35">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -334,7 +334,7 @@ As long as you control five or more creatures, The White Lady has hexproof and d
 				<manacost>1W</manacost>
 				<cmc>2</cmc>
 				<colors>W</colors>
-				<coloridentity>WB</coloridentity>
+				<coloridentity>W</coloridentity>
 				<pt>*/*</pt>
 			</prop>
 			<tablerow>2</tablerow>
@@ -689,7 +689,7 @@ For each opponent, choose a creature they control with less power than the great
 		</card>
 		<card>
 			<name>The Pale King</name>
-			<text>Cards enter exile with an additional void counter on them.
+			<text>Cards enter exile with a void counter on them.
 {T}: Exile target card from a graveyard.
 {2}{B}, Remove three void counters from among cards in exile: Create a black 3/1 Horror artifact creature token with indestructible.</text>
 			<set rarity="rare" picurl="https://commanderziggens.github.io/sets/HOK-files/img/39.png" num="92">HOK</set>
@@ -781,8 +781,8 @@ When this creature enters, target player reveals their hand. You choose an artif
 		</card>
 		<card>
 			<name>Void Tendrils</name>
-			<text>When this creature enters, exile target card from a graveyard. If a creature card is exiled this way, draw a card.
-Menace</text>
+			<text>Menace
+When this creature enters, exile target card from a graveyard. If a creature card is exiled this way, draw a card.</text>
 			<set rarity="common" picurl="https://commanderziggens.github.io/sets/HOK-files/img/44.png" num="106">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -981,7 +981,7 @@ You may cast this card from your graveyard. If you do, it enters with a finality
 		<card>
 			<name>Fragile Greed</name>
 			<text>Enchant creature
-Enchanted creature gets +1/+0, has trample and &quot;Whenever this creature deals combat damage to a player, create a tapped Treasure token&quot;.
+Enchanted creature gets +1/+0, has trample and &quot;Whenever this creature deals combat damage to a player, create a Treasure token.&quot;
 Whenever enchanted creature is dealt damage, sacrifice this Aura.</text>
 			<set rarity="common" picurl="https://commanderziggens.github.io/sets/HOK-files/img/55.png" num="124">HOK</set>
 			<prop>
@@ -1047,7 +1047,7 @@ You may cast this card from your graveyard. If you do, it enters with a finality
 				<cmc>1</cmc>
 				<colors>R</colors>
 				<coloridentity>R</coloridentity>
-				<pt>3/1</pt>
+				<pt>2/2</pt>
 			</prop>
 			<tablerow>2</tablerow>
 		</card>
@@ -1266,7 +1266,7 @@ Create a Map token. (It&apos;s an artifact with &quot;{1}, {T}, Sacrifice this t
 		</card>
 		<card>
 			<name>Durandoo</name>
-			<text>{GU}: Add one mana of any color. Activate this ability only once each turn.</text>
+			<text>{GU}, {T}: Add two mana of any one color. Activate this ability only once each turn.</text>
 			<set rarity="common" picurl="https://commanderziggens.github.io/sets/HOK-files/img/71.png" num="154">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -1283,8 +1283,8 @@ Create a Map token. (It&apos;s an artifact with &quot;{1}, {T}, Sacrifice this t
 		</card>
 		<card>
 			<name>Elder Baldur</name>
-			<text>When this creature enters, create a Map token.
-Vigilance
+			<text>Vigilance
+When this creature enters, create a Map token.
 Modified creatures you control get +0/+3. (Equipment, Auras you control, and counters are modifications.)</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/72.png" num="155">HOK</set>
 			<prop>
@@ -1303,7 +1303,7 @@ Modified creatures you control get +0/+3. (Equipment, Auras you control, and cou
 		<card>
 			<name>Flukemon</name>
 			<text>At the beginning of combat on your turn, put a +1/+1 counter on target Leech.
-When this creature dies, search your library for two creature cards named Bisected Flukemon and put them onto the battlefield, then shuffle.</text>
+When this creature dies, search your library for up to two cards named Bisected Flukemon and put them onto the battlefield, then shuffle.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/73.png" num="241">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -1375,7 +1375,7 @@ Modified creatures you control must be blocked if able. (Equipment, Auras you co
 		</card>
 		<card>
 			<name>Lumble the Lucky</name>
-			<text>When Lumble the Lucky enters, you may search your library and/or graveyard for a Charm card, reveal it and put it into your hand, then shuffle.
+			<text>When Lumble the Lucky enters, you may search your library or graveyard for a Charm card, reveal it and put it into your hand, then shuffle.
 This card&apos;s name is Lumble as long as you don&apos;t control a Charm.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/77.png" num="163">HOK</set>
 			<prop>
@@ -1557,7 +1557,7 @@ At the beginning of your upkeep, put a random permanent card exiled with Unn ont
 		<card>
 			<name>Volatile Mosskin</name>
 			<text>{2}, Sacrifice this creature: Draw a card.
-When this creature dies, if it was modified, add {G}{G}{G}. (Equipment, Auras you control, and counters are modifications.)</text>
+When Volatile Mosskin dies, if it&apos;s modified, add {G}{G}{G}. (Equipment, Auras you control, and counters are modifications.)</text>
 			<set rarity="common" picurl="https://commanderziggens.github.io/sets/HOK-files/img/87.png" num="180">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -1626,7 +1626,7 @@ Whenever this creature attacks, each opponent sacrifices an artifact. For each o
 		</card>
 		<card>
 			<name>Broken Vessel</name>
-			<text>When this creature dies, return target enchantment card from your graveyard to your hand, then create a 2/2 black Shade creature token.</text>
+			<text>When this creature dies, return up to one target enchantment card from your graveyard to your hand, then create a 2/2 black Shade creature token.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/91.png" num="184">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -1644,7 +1644,7 @@ Whenever this creature attacks, each opponent sacrifices an artifact. For each o
 		<card>
 			<name>Covetous Pilgrim</name>
 			<text>When this creature enters, create a Treasure token.
-Whenever a creature dies, create a Treasure token. This triggers only once each turn.</text>
+Whenever a creature dies, create two tapped Treasure tokens. This ability triggers only once each turn.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/92.png" num="185">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -1699,7 +1699,7 @@ Whenever a Leech you control dies, you gain 1 life and surveil 1.</text>
 		<card>
 			<name>Forebrothers Signis &amp; Gron</name>
 			<text>Trample, ward—Pay 3 life
-Whenever Signis &amp; Gron attacks or deals combat damage to a player, you may put an Aura that could enchant a creature you control or Equipment onto the battlefield from your hand attached to target creature you control. If you don&apos;t, draw a card.</text>
+Whenever Signis &amp; Gron attacks or deals combat damage to a player, you may put an Aura or Equipment card from your hand onto the battlefield attached to target creature. If you don&apos;t, draw a card.</text>
 			<set rarity="rare" picurl="https://commanderziggens.github.io/sets/HOK-files/img/95.png" num="193">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -1830,7 +1830,7 @@ Whenever you cast a historic spell, if The Hollow Knight has any stun counters o
 			<name>Hornet the Hunter</name>
 			<text>First strike, haste, ward— {2}
 Whenever a creature dealt damage by Hornet this turn dies, put a +1/+1 counter on her.
-At the beginning of your end step, sacrifice a permanent attached to Hornet. If you do, return target Aura card that could enchant her or Equipment card from your graveyard to the battlefield attached to her.</text>
+At the beginning of your end step, you may sacrifice a permanent attached to Hornet. If you do, return target Aura or Equipment card from your graveyard to the battlefield attached to her.</text>
 			<set rarity="mythic" picurl="https://commanderziggens.github.io/sets/HOK-files/img/102.png" num="201">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -1848,7 +1848,7 @@ At the beginning of your end step, sacrifice a permanent attached to Hornet. If 
 		<card>
 			<name>Lace, Woven by Silk</name>
 			<text>First strike, lifelink
-Whenever you gain life, choose target permanent card in your graveyard. You may cast that card this turn. It enters with a finality counter on it.</text>
+Whenever you gain life, choose target permanent card in your graveyard. You may cast that card this turn. When you do, it enters with a finality counter on it.</text>
 			<set rarity="rare" picurl="https://commanderziggens.github.io/sets/HOK-files/img/103.png" num="202">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -1922,7 +1922,7 @@ Whenever you gain life, put a +1/+1 counter on target creature. It deals combat 
 		<card>
 			<name>Mantis Warrior</name>
 			<text>When this creature enters, you may have it fight target creature an opponent controls.
-Whenever a modified creature dies, surveil 1. (Equipment, Auras you control, and counters are modifications. To surveil 1, look at the top card of your library. You may put it into your graveyard.)</text>
+Whenever a modified creature dies, surveil 1. (Equipment, Auras you control, and counters are modifications.)</text>
 			<set rarity="common" picurl="https://commanderziggens.github.io/sets/HOK-files/img/107.png" num="166">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -2207,7 +2207,7 @@ As long as The Soul Master is attacking, you may cast noncreature cards from opp
 		</card>
 		<card>
 			<name>Steel Soul</name>
-			<text>Creatures enter with an additional finality counter on them.
+			<text>Creatures enter with a finality counter on them.
 Creature spells you cast cost {2} less to cast.</text>
 			<set rarity="mythic" picurl="https://commanderziggens.github.io/sets/HOK-files/img/123.png" num="227">HOK</set>
 			<prop>
@@ -2819,7 +2819,7 @@ Whenever an enchantment you control is put into a graveyard from the battlefield
 		</card>
 		<card>
 			<name>Gargant Gloom</name>
-			<text>At the beginning of your upkeep, choose target card you own in exile. You may play that card this turn. It costs {3} more to cast.
+			<text>At the beginning of your upkeep, choose target card you own in exile. You may play that card this turn. It costs {3} more to cast this turn.
 {1}, Exile a card from your graveyard: Target creature gets -1/-1 until end of turn.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/159.png" num="83">HOK</set>
 			<prop>
@@ -3012,8 +3012,8 @@ Return target nonland permanent to its owner&apos;s hand. Draw a card.</text>
 		<card>
 			<name>The Wyrm&apos;s Rebirth</name>
 			<text>(As this Saga enters and after your draw step, add a lore counter. Sacrifice after II.)
-I — Each player sacrifices a creature. You gain 1 life for each creature sacrificed this way.
-II — Exile target creature card from your graveyard. Create a token copy of that creature, except its power and toughness is 1/1.
+Each player sacrifices a creature. You gain 1 life for each creature sacrificed this way.
+Exile target creature card from your graveyard. Create a token that&apos;s a copy of that creature, except its power and toughness is 1/1.
 ​</text>
 			<set rarity="rare" picurl="https://commanderziggens.github.io/sets/HOK-files/img/170.png" num="238">HOK</set>
 			<prop>
@@ -3183,9 +3183,9 @@ Whenever Cage in Runes becomes the target of a spell or ability an opponent cont
 		<card>
 			<name>The Binding of Silk</name>
 			<text>(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)
-I — Exile target creature until this Saga leaves the battlefield.
+Exile target creature until this Saga leaves the battlefield.
 Create two 1/2 black Spider creature tokens with reach.
-II — Draw a card.
+Draw a card.
 You may tap two untapped creatures you control. If you do, remove a lore counter from this Saga.</text>
 			<set rarity="mythic" picurl="https://commanderziggens.github.io/sets/HOK-files/img/180.png" num="4">HOK</set>
 			<prop>
@@ -3275,7 +3275,7 @@ At the beginning of each upkeep, if you control no Insect artifact creature toke
 			<name>Pale Nails</name>
 			<text>Choose two. You may choose the same mode more than once —
 • Destroy target creature with power 4 or greater.
-• Destroy target artifact.
+• Destroy target noncreature artifact.
 • Put a hone counter on target Equipment. (Each hone counter on an Equipment grants +1/+0 to equipped creature.)
 • Exile target player&apos;s graveyard.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/185.png" num="18">HOK</set>
@@ -3312,7 +3312,7 @@ When this creature enters, create a Map token. (It&apos;s an artifact with &quot
 		<card>
 			<name>Radiant Infection</name>
 			<text>Enchant creature
-If you control enchanted creature, it gets +2/+1. Otherwise, enchanted creature can&apos;t attack.
+If you control enchanted creature, it gets +1/+1. Otherwise, enchanted creature can&apos;t attack.
 When enchanted creature dies, return this enchantment to its owner&apos;s hand.</text>
 			<set rarity="common" picurl="https://commanderziggens.github.io/sets/HOK-files/img/187.png" num="23">HOK</set>
 			<prop>
@@ -3320,8 +3320,8 @@ When enchanted creature dies, return this enchantment to its owner&apos;s hand.<
 				<side>front</side>
 				<type>Enchantment — Aura</type>
 				<maintype>Enchantment</maintype>
-				<manacost>2W</manacost>
-				<cmc>3</cmc>
+				<manacost>1W</manacost>
+				<cmc>2</cmc>
 				<colors>W</colors>
 				<coloridentity>W</coloridentity>
 			</prop>
@@ -3397,7 +3397,7 @@ When this enchantment enters, destroy each other permanent you don&apos;t contro
 		</card>
 		<card>
 			<name>Snared Silk</name>
-			<text>Counter target spell activated ability, or triggered ability.
+			<text>Counter target spell, activated ability, or triggered ability.
 Threshold — As long as there are seven or more cards in your graveyard, this spell costs {3} less to cast.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/192.png" num="62">HOK</set>
 			<prop>
@@ -3500,9 +3500,10 @@ Flashback {1}{U} (You may cast this card from your graveyard for its flashback c
 		</card>
 		<card>
 			<name>Fayforn, Downy Ancient</name>
-			<text>Flying, hexproof
-Whenever an unmodified creature you control deals combat damage to a player, create a Mask token attached to it.
-Modified creatures you control have flying.</text>
+			<text>Flash
+Flying, hexproof
+Modified creatures you control have flying.
+Whenever an unmodified creature you control deals combat damage to a player, create a Mask token attached to it and draw a card.</text>
 			<set rarity="mythic" picurl="https://commanderziggens.github.io/sets/HOK-files/img/198.png" num="50">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -3520,8 +3521,8 @@ Modified creatures you control have flying.</text>
 		<card>
 			<name>The Soul Master&apos;s Descent</name>
 			<text>(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)
-I — Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
-II, III — Each player mills four cards.
+Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
+Each player mills four cards.
 ​</text>
 			<set rarity="rare" picurl="https://commanderziggens.github.io/sets/HOK-files/img/199.png" num="63">HOK</set>
 			<prop>
@@ -3557,7 +3558,7 @@ Whenever you cast a spell from a graveyard, Watcher at the Edge becomes a legend
 		<card>
 			<name>Hallownest Dreams</name>
 			<text>Search your library for a card, put it into your hand, then shuffle.
-If you cast this spell from your hand, you may cast target nonland card with mana value 2 or less from your graveyard without paying its mana cost.
+If you cast this spell from your hand, cast up to one target nonland card with mana value 2 or less from your graveyard without paying its mana cost.
 Flashback {2}{B}</text>
 			<set rarity="rare" picurl="https://commanderziggens.github.io/sets/HOK-files/img/201.png" num="87">HOK</set>
 			<prop>
@@ -3734,7 +3735,7 @@ Flashback {1}{R} (You may cast this card from your graveyard for its flashback c
 		</card>
 		<card>
 			<name>Searing Lavalug</name>
-			<text>When this creature dies, exile the top two cards of your library, then choose one. You may play that card until the end of your next turn.</text>
+			<text>When this creature dies, exile the top two cards of your library. You may play those cards until the end of your next turn.</text>
 			<set rarity="common" picurl="https://commanderziggens.github.io/sets/HOK-files/img/211.png" num="137">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -3872,7 +3873,7 @@ Search your library for a Charm card with mana value 3 or less and reveal it. If
 		<card>
 			<name>The Fall of Hallownest</name>
 			<text>(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)
-I, II — Each player mills three cards. Each opponent loses 1 life for each nonland card they mill this way.
+I, II — Each player mills a card. Each opponent loses 1 life for each nonland card they mill this way.
 III — Target instant or sorcery card with mana value 3 or less in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.
 ​</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/219.png" num="190">HOK</set>
@@ -3927,9 +3928,9 @@ As long as your life total is less than or equal to your starting life total, cr
 		<card>
 			<name>Ordaining the Vessel</name>
 			<text>(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)
-I — Create a 2/2 black Shade creature token.
+Create a 2/2 black Shade creature token.
 Put two +1/+1 counters on target creature you control. It&apos;s a Knight in addition to its other types.
-II — Exile target permanent with mana value 4 or greater.</text>
+Exile target permanent with mana value 4 or greater.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/222.png" num="17">HOK</set>
 			<prop>
 				<layout>saga</layout>
@@ -3966,7 +3967,7 @@ Spells you cast from exile cost {1} less to cast for each modified creature you 
 		<card>
 			<name>Quirrel&apos;s Journey</name>
 			<text>(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)
-I, II — Exile another target nonland permanent. Return it to the battlefield under its owner&apos;s control at the beginning of the next end step.
+Exile another target nonland permanent. Return it to the battlefield under its owner&apos;s control at the beginning of the next end step.
 Target creature you control gets +1/+0 and gains first strike until end of turn.
 III — Create a Mask token attached to target creature you control.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/224.png" num="215">HOK</set>
@@ -4637,7 +4638,7 @@ Threshold — If there are seven or more cards in your graveyard, those creature
 • Counter target activated or triggered ability unless its controller pays {2}.
 • Exile target creature, then return it to the battlefield under its owner&apos;s control.
 • Draw two cards, then discard a card.
-• Target player mills 4 cards.</text>
+• Target player mills four cards.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/264.png" num="51">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -4677,7 +4678,7 @@ When this creature dies, draw a card, then you may put a creature card with mana
 			<prop>
 				<layout>normal</layout>
 				<side>front</side>
-				<type>Creature — Zombie Insect Warrior</type>
+				<type>Creature — Zombie Insect Knight</type>
 				<maintype>Creature</maintype>
 				<manacost>4U</manacost>
 				<cmc>5</cmc>
@@ -4710,7 +4711,7 @@ Whenever you cast a spell from a graveyard, target creature an opponent controls
 			<text>Choose two. You may choose the same mode more than once —
 • Creatures you control get +1/+0 until end of turn.
 • Return target sorcery card from your graveyard to your hand.
-• Crystal Heart deals 2 each opponent.
+• Crystal Heart deals 2 damage to each opponent.
 • Create a Map token.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/268.png" num="117">HOK</set>
 			<prop>
@@ -4869,7 +4870,7 @@ You may choose new targets for target spell or ability.</text>
 • Put a +1/+1 counter on target creature.
 • Return target land card from your graveyard to the battlefield tapped.
 • Put target card from a graveyard on top of its owner&apos;s library.
-• Destroy target enchantment.</text>
+• Destroy target noncreature enchantment.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/277.png" num="175">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -4885,7 +4886,8 @@ You may choose new targets for target spell or ability.</text>
 		</card>
 		<card>
 			<name>Relic Sale</name>
-			<text>Search your library for an artifact card, reveal it, then shuffle and put that card on top.</text>
+			<text>Search your library for an artifact card, reveal it, then shuffle and put that card on top. 
+You may create a Treasure token. If you don&apos;t, draw a card, then discard a card.</text>
 			<set rarity="uncommon" picurl="https://commanderziggens.github.io/sets/HOK-files/img/278.png" num="134">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -5091,9 +5093,10 @@ Choose target creature card in your graveyard and target nonland, noncreature ca
 		</card>
 		<card>
 			<name>Tipp &amp; Pill, Couriers</name>
-			<text>Tipp &amp; Pill enters with two +1/+1 counters on it.
+			<text>Flying
+Tipp &amp; Pill enter with two +1/+1 counters on them.
 {2}: Move a counter on target permanent you control onto another target permanent. Put a courier counter on Tipp &amp; Pill.
-{2}, Remove three counters from permanents you control: You draw three cards.</text>
+Remove three counters from Tipp &amp; Pill: Draw three cards.</text>
 			<set rarity="rare" picurl="https://commanderziggens.github.io/sets/HOK-files/img/290.png" num="230">HOK</set>
 			<prop>
 				<layout>normal</layout>
@@ -5356,7 +5359,7 @@ Other Insects you control get +1/+1.</text>
 			<prop>
 				<layout>normal</layout>
 				<side>front</side>
-				<type>Token Creature — Insect</type>
+				<type>Token Artifact Creature — Insect</type>
 				<maintype>Creature</maintype>
 				<manacost></manacost>
 				<cmc>0</cmc>
@@ -5438,7 +5441,7 @@ Equip {1}</text>
 		</card>
 		<card>
 			<name>Pollip Pouch</name>
-			<text>If equipped creature would deal damage, it deals that much damage plus one instead.
+			<text>Whenever equipped creature attacks, defending player loses 2 life.
 Equipped creature gets +0/+2.
 Equip {2}</text>
 			<set rarity="common" picurl="https://commanderziggens.github.io/sets/HOK-files/img/310.png" num="93">HOK</set>
@@ -5456,7 +5459,7 @@ Equip {2}</text>
 		</card>
 		<card>
 			<name>Faded Memory Crystal</name>
-			<text>When this Equipment enters, draw a card, then discard a card.
+			<text>When this Equipment enters, draw a card, then you may discard a card. If you discard a card this way, attach this Equipment to target creature you control.
 Equipped creature gets +1/+1 and has hexproof.
 Equip {3}</text>
 			<set rarity="common" picurl="https://commanderziggens.github.io/sets/HOK-files/img/311.png" num="48">HOK</set>

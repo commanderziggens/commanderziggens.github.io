@@ -1,4 +1,328 @@
-﻿VERSION 5 CHANGELOG
+﻿VERSION 6 CHANGELOG
+====================
+
+
+
+The Trials of Godhome
+rules_text: Exile up to three target creature cards from among creatures you control and your graveyard. Create a token copy of each card exiled this way. They're enchantments in addition to their other types and have “When this creature leaves the battlefield, put a creature card you own in exile with the same name as this creature onto the battlefield under your control.” => Exile up to three target creature cards from among creatures you control and your graveyard. Create a token that's a copy of each card exiled this way. They're enchantments in addition to their other types and have “When this creature leaves the battlefield, put a creature card you own in exile with the same name as this creature onto the battlefield under your control.”
+
+The White Lady
+rules_text: The White Lady's power and toughness are each equal to the number of creatures you control.
+As long as you control five or more creatures, The White Lady has hexproof and defender.
+{2}{B}, {T}: Create a 2/2 black Shade creature token. => The White Lady's power and toughness are each equal to the number of creatures you control.
+As long as you control five or more creatures, The White Lady has hexproof and defender.
+{2}{W}, {T}: Create a 2/2 black Shade creature token.
+
+Dream No More
+
+The Pale King
+rules_text: Cards enter exile with an additional void counter on them.
+{T}: Exile target card from a graveyard.
+{2}{B}, Remove three void counters from among cards in exile: Create a black 3/1 Horror artifact creature token with indestructible. => Cards enter exile with a void counter on them.
+{T}: Exile target card from a graveyard.
+{2}{B}, Remove three void counters from among cards in exile: Create a black 3/1 Horror artifact creature token with indestructible.
+
+Void Tendrils
+rules_text: When this creature enters, exile target card from a graveyard. If a creature card is exiled this way, draw a card.
+Menace => Menace
+When this creature enters, exile target card from a graveyard. If a creature card is exiled this way, draw a card.
+
+Fragile Greed
+rules_text: Enchant creature
+Enchanted creature gets +1/+0, has trample and “Whenever this creature deals combat damage to a player, create a tapped Treasure token”.
+Whenever enchanted creature is dealt damage, sacrifice this Aura. => Enchant creature
+Enchanted creature gets +1/+0, has trample and “Whenever this creature deals combat damage to a player, create a Treasure token.”
+Whenever enchanted creature is dealt damage, sacrifice this Aura.
+
+Lantern-Born Wisp
+pt: 3/1 => 2/2
+
+Durandoo
+rules_text: {GU}: Add one mana of any color. Activate this ability only once each turn. => {GU}, {T}: Add two mana of any one color. Activate this ability only once each turn.
+
+Elder Baldur
+rules_text: When this creature enters, create a Map token.
+Vigilance
+Modified creatures you control get +0/+3. [i](Equipment, Auras you control, and counters are modifications.)[/i] => Vigilance
+When this creature enters, create a Map token.
+Modified creatures you control get +0/+3. [i](Equipment, Auras you control, and counters are modifications.)[/i]
+
+Flukemon
+rules_text: At the beginning of combat on your turn, put a +1/+1 counter on target Leech.
+When this creature dies, search your library for two creature cards named Bisected Flukemon and put them onto the battlefield, then shuffle. => At the beginning of combat on your turn, put a +1/+1 counter on target Leech.
+When this creature dies, search your library for up to two cards named Bisected Flukemon and put them onto the battlefield, then shuffle.
+
+Lumble the Lucky
+rules_text: When Lumble the Lucky enters, you may search your library and/or graveyard for a Charm card, reveal it and put it into your hand, then shuffle.
+This card's name is Lumble as long as you don't control a Charm. => When Lumble the Lucky enters, you may search your library or graveyard for a Charm card, reveal it and put it into your hand, then shuffle.
+This card's name is Lumble as long as you don't control a Charm.
+
+Volatile Mosskin
+rules_text: {2}, Sacrifice this creature: Draw a card.
+When this creature dies, if it was modified, add {G}{G}{G}. [i](Equipment, Auras you control, and counters are modifications.)[/i] => {2}, Sacrifice this creature: Draw a card.
+When Volatile Mosskin dies, if it's modified, add {G}{G}{G}. [i](Equipment, Auras you control, and counters are modifications.)[/i]
+
+Broken Vessel
+rules_text: When this creature dies, return target enchantment card from your graveyard to your hand, then create a 2/2 black Shade creature token. => When this creature dies, return up to one target enchantment card from your graveyard to your hand, then create a 2/2 black Shade creature token.
+
+Covetous Pilgrim
+rules_text: When this creature enters, create a Treasure token.
+Whenever a creature dies, create a Treasure token. This triggers only once each turn. => When this creature enters, create a Treasure token.
+Whenever a creature dies, create two tapped Treasure tokens. This ability triggers only once each turn.
+
+Forebrothers Signis & Gron
+rules_text: Trample, ward—Pay 3 life
+Whenever Signis & Gron attacks or deals combat damage to a player, you may put an Aura that could enchant a creature you control or Equipment onto the battlefield from your hand attached to target creature you control. If you don't, draw a card. => Trample, ward—Pay 3 life
+Whenever Signis & Gron attacks or deals combat damage to a player, you may put an Aura or Equipment card from your hand onto the battlefield attached to target creature. If you don't, draw a card.
+
+Hornet the Hunter
+rules_text: First strike, haste, ward— {2}
+Whenever a creature dealt damage by Hornet this turn dies, put a +1/+1 counter on her.
+At the beginning of your end step, sacrifice a permanent attached to Hornet. If you do, return target Aura card that could enchant her or Equipment card from your graveyard to the battlefield attached to her. => First strike, haste, ward— {2}
+Whenever a creature dealt damage by Hornet this turn dies, put a +1/+1 counter on her.
+At the beginning of your end step, you may sacrifice a permanent attached to Hornet. If you do, return target Aura or Equipment card from your graveyard to the battlefield attached to her.
+
+Lace, Woven by Silk
+rules_text: First strike, lifelink
+Whenever you gain life, choose target permanent card in your graveyard. You may cast that card this turn. It enters with a finality counter on it. => First strike, lifelink
+Whenever you gain life, choose target permanent card in your graveyard. You may cast that card this turn. When you do, it enters with a finality counter on it.
+
+Mantis Warrior
+rules_text: When this creature enters, you may have it fight target creature an opponent controls.
+Whenever a modified creature dies, surveil 1. [i](Equipment, Auras you control, and counters are modifications. To surveil 1, look at the top card of your library. You may put it into your graveyard.)[/i] => When this creature enters, you may have it fight target creature an opponent controls.
+Whenever a modified creature dies, surveil 1. [i](Equipment, Auras you control, and counters are modifications.)[/i]
+
+Nyleth, Heart of the Wood
+
+Steel Soul
+rules_text: Creatures enter with an additional finality counter on them.
+Creature spells you cast cost {2} less to cast. => Creatures enter with a finality counter on them.
+Creature spells you cast cost {2} less to cast.
+
+Gargant Gloom
+rules_text: At the beginning of your upkeep, choose target card you own in exile. You may play that card this turn. It costs {3} more to cast.
+{1}, Exile a card from your graveyard: Target creature gets -1/-1 until end of turn. => At the beginning of your upkeep, choose target card you own in exile. You may play that card this turn. It costs {3} more to cast this turn.
+{1}, Exile a card from your graveyard: Target creature gets -1/-1 until end of turn.
+
+Runed Reflection
+
+The Wyrm's Rebirth
+rules_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after II.)[/i]
+I — Each player sacrifices a creature. You gain 1 life for each creature sacrificed this way.
+II — Exile target creature card from your graveyard. Create a token copy of that creature, except its power and toughness is 1/1.
+​ => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after II.)[/i]
+Each player sacrifices a creature. You gain 1 life for each creature sacrificed this way.
+Exile target creature card from your graveyard. Create a token that's a copy of that creature, except its power and toughness is 1/1.
+​
+special_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after II.)[/i]
+I — Each player sacrifices a creature. You gain 1 life for each creature sacrificed this way.
+II — Exile target creature card from your graveyard. Create a token copy of that creature, except its power and toughness is 1/1.
+​ => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after II.)[/i]
+Each player sacrifices a creature. You gain 1 life for each creature sacrificed this way.
+Exile target creature card from your graveyard. Create a token that's a copy of that creature, except its power and toughness is 1/1.
+​
+
+The Binding of Silk
+rules_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I — Exile target creature until this Saga leaves the battlefield.
+Create two 1/2 black Spider creature tokens with reach.
+II — Draw a card.
+You may tap two untapped creatures you control. If you do, remove a lore counter from this Saga. => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Exile target creature until this Saga leaves the battlefield.
+Create two 1/2 black Spider creature tokens with reach.
+Draw a card.
+You may tap two untapped creatures you control. If you do, remove a lore counter from this Saga.
+special_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I — Exile target creature until this Saga leaves the battlefield.
+Create two 1/2 black Spider creature tokens with reach.
+II — Draw a card.
+You may tap two untapped creatures you control. If you do, remove a lore counter from this Saga. => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Exile target creature until this Saga leaves the battlefield.
+Create two 1/2 black Spider creature tokens with reach.
+Draw a card.
+You may tap two untapped creatures you control. If you do, remove a lore counter from this Saga.
+
+Pale Nails
+rules_text: Choose two. You may choose the same mode more than once —
+• Destroy target creature with power 4 or greater.
+• Destroy target artifact.
+• Put a hone counter on target Equipment. [i](Each hone counter on an Equipment grants +1/+0 to equipped creature.)[/i]
+• Exile target player's graveyard. => Choose two. You may choose the same mode more than once —
+• Destroy target creature with power 4 or greater.
+• Destroy target noncreature artifact.
+• Put a hone counter on target Equipment. [i](Each hone counter on an Equipment grants +1/+0 to equipped creature.)[/i]
+• Exile target player's graveyard.
+
+Radiant Infection
+cost: {2}{W} => {1}{W}
+rules_text: Enchant creature
+If you control enchanted creature, it gets +2/+1. Otherwise, enchanted creature can't attack.
+When enchanted creature dies, return this enchantment to its owner's hand. => Enchant creature
+If you control enchanted creature, it gets +1/+1. Otherwise, enchanted creature can't attack.
+When enchanted creature dies, return this enchantment to its owner's hand.
+
+Snared Silk
+rules_text: Counter target spell activated ability, or triggered ability.
+[i]Threshold[/i] — As long as there are seven or more cards in your graveyard, this spell costs {3} less to cast. => Counter target spell, activated ability, or triggered ability.
+[i]Threshold[/i] — As long as there are seven or more cards in your graveyard, this spell costs {3} less to cast.
+
+Fayforn, Downy Ancient
+rules_text: Flying, hexproof
+Whenever an unmodified creature you control deals combat damage to a player, create a Mask token attached to it.
+Modified creatures you control have flying. => Flash
+Flying, hexproof
+Modified creatures you control have flying.
+Whenever an unmodified creature you control deals combat damage to a player, create a Mask token attached to it and draw a card.
+
+The Soul Master's Descent
+rules_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I — Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
+II, III — Each player mills four cards.
+​ => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
+Each player mills four cards.
+​
+special_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I — Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
+II, III — Each player mills four cards.
+​ => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Choose target player. As long as this Saga is on the battlefield, whenever that player would mill one or more cards, they mill twice that many cards instead.
+Each player mills four cards.
+​
+
+Hallownest Dreams
+rules_text: Search your library for a card, put it into your hand, then shuffle.
+If you cast this spell from your hand, you may cast target nonland card with mana value 2 or less from your graveyard without paying its mana cost.
+Flashback {2}{B} => Search your library for a card, put it into your hand, then shuffle.
+If you cast this spell from your hand, cast up to one target nonland card with mana value 2 or less from your graveyard without paying its mana cost.
+Flashback {2}{B}
+
+Husk Guard
+
+Sharp Shadow
+
+Searing Lavalug
+rules_text: When this creature dies, exile the top two cards of your library, then choose one. You may play that card until the end of your next turn. => When this creature dies, exile the top two cards of your library. You may play those cards until the end of your next turn.
+
+The Fall of Hallownest
+rules_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I, II — Each player mills three cards. Each opponent loses 1 life for each nonland card they mill this way.
+III — Target instant or sorcery card with mana value 3 or less in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.
+​ => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I, II — Each player mills a card. Each opponent loses 1 life for each nonland card they mill this way.
+III — Target instant or sorcery card with mana value 3 or less in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.
+​
+special_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I, II — Each player mills three cards. Each opponent loses 1 life for each nonland card they mill this way.
+III — Target instant or sorcery card with mana value 3 or less in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.
+​ => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I, II — Each player mills a card. Each opponent loses 1 life for each nonland card they mill this way.
+III — Target instant or sorcery card with mana value 3 or less in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.
+​
+
+Ordaining the Vessel
+rules_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I — Create a 2/2 black Shade creature token.
+Put two +1/+1 counters on target creature you control. It's a Knight in addition to its other types.
+II — Exile target permanent with mana value 4 or greater. => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Create a 2/2 black Shade creature token.
+Put two +1/+1 counters on target creature you control. It's a Knight in addition to its other types.
+Exile target permanent with mana value 4 or greater.
+special_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I — Create a 2/2 black Shade creature token.
+Put two +1/+1 counters on target creature you control. It's a Knight in addition to its other types.
+II — Exile target permanent with mana value 4 or greater. => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Create a 2/2 black Shade creature token.
+Put two +1/+1 counters on target creature you control. It's a Knight in addition to its other types.
+Exile target permanent with mana value 4 or greater.
+
+Quirrel's Journey
+rules_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I, II — Exile another target nonland permanent. Return it to the battlefield under its owner's control at the beginning of the next end step.
+Target creature you control gets +1/+0 and gains first strike until end of turn.
+III — Create a Mask token attached to target creature you control. => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Exile another target nonland permanent. Return it to the battlefield under its owner's control at the beginning of the next end step.
+Target creature you control gets +1/+0 and gains first strike until end of turn.
+III — Create a Mask token attached to target creature you control.
+special_text: [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+I, II — Exile another target nonland permanent. Return it to the battlefield under its owner's control at the beginning of the next end step.
+Target creature you control gets +1/+0 and gains first strike until end of turn.
+III — Create a Mask token attached to target creature you control. => [i](As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)[/i]
+Exile another target nonland permanent. Return it to the battlefield under its owner's control at the beginning of the next end step.
+Target creature you control gets +1/+0 and gains first strike until end of turn.
+III — Create a Mask token attached to target creature you control.
+
+Stalking Grimmkin
+
+Silkspun Knowledge
+
+Howling Wraiths
+rules_text: Choose two. You may choose the same mode more than once —
+• Counter target activated or triggered ability unless its controller pays {2}.
+• Exile target creature, then return it to the battlefield under its owner's control.
+• Draw two cards, then discard a card.
+• Target player mills 4 cards. => Choose two. You may choose the same mode more than once —
+• Counter target activated or triggered ability unless its controller pays {2}.
+• Exile target creature, then return it to the battlefield under its owner's control.
+• Draw two cards, then discard a card.
+• Target player mills four cards.
+
+Watcher Knight
+type: Creature — Zombie Insect Warrior => Creature — Zombie Insect Knight
+
+Crystal Heart
+rules_text: Choose two. You may choose the same mode more than once —
+• Creatures you control get +1/+0 until end of turn.
+• Return target sorcery card from your graveyard to your hand.
+• Crystal Heart deals 2 each opponent.
+• Create a Map token. => Choose two. You may choose the same mode more than once —
+• Creatures you control get +1/+0 until end of turn.
+• Return target sorcery card from your graveyard to your hand.
+• Crystal Heart deals 2 damage to each opponent.
+• Create a Map token.
+
+Sharpdart
+rules_text: Choose two. You may choose the same mode more than once —
+• Put a +1/+1 counter on target creature.
+• Return target land card from your graveyard to the battlefield tapped.
+• Put target card from a graveyard on top of its owner's library.
+• Destroy target enchantment. => Choose two. You may choose the same mode more than once —
+• Put a +1/+1 counter on target creature.
+• Return target land card from your graveyard to the battlefield tapped.
+• Put target card from a graveyard on top of its owner's library.
+• Destroy target noncreature enchantment.
+
+Relic Sale
+rules_text: Search your library for an artifact card, reveal it, then shuffle and put that card on top. => Search your library for an artifact card, reveal it, then shuffle and put that card on top. 
+You may create a Treasure token. If you don't, draw a card, then discard a card.
+
+Tipp & Pill, Couriers
+rules_text: Tipp & Pill enters with two +1/+1 counters on it.
+{2}: Move a counter on target permanent you control onto another target permanent. Put a courier counter on Tipp & Pill.
+{2}, Remove three counters from permanents you control: You draw three cards. => Flying
+Tipp & Pill enter with two +1/+1 counters on them.
+{2}: Move a counter on target permanent you control onto another target permanent. Put a courier counter on Tipp & Pill.
+Remove three counters from Tipp & Pill: Draw three cards.
+
+Insect
+type: Token Creature — Insect => Token Artifact Creature — Insect
+
+Pollip Pouch
+rules_text: If equipped creature would deal damage, it deals that much damage plus one instead.
+Equipped creature gets +0/+2.
+Equip {2} => Whenever equipped creature attacks, defending player loses 2 life.
+Equipped creature gets +0/+2.
+Equip {2}
+
+Faded Memory Crystal
+rules_text: When this Equipment enters, draw a card, then discard a card.
+Equipped creature gets +1/+1 and has hexproof.
+Equip {3} => When this Equipment enters, draw a card, then you may discard a card. If you discard a card this way, attach this Equipment to target creature you control.
+Equipped creature gets +1/+1 and has hexproof.
+Equip {3}
+
+
+VERSION 5 CHANGELOG
 ====================
 
 Racers' Ring added.

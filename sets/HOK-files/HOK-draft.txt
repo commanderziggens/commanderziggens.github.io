@@ -1873,7 +1873,7 @@
 		{
 			"name": "Radiant Infection",
 			"rarity": "common",
-			"mana_cost": "{2}{W}",
+			"mana_cost": "{1}{W}",
 			"type": "Enchantment — Aura",
 			"collector_number": "23",
 			"image_uris": {
@@ -2664,7 +2664,7 @@
 			"name": "Watcher Knight",
 			"rarity": "rare",
 			"mana_cost": "{4}{U}",
-			"type": "Creature — Zombie Insect Warrior",
+			"type": "Creature — Zombie Insect Knight",
 			"collector_number": "71",
 			"image_uris": {
 				"en": "https://commanderziggens.github.io/sets/HOK-files/img/266.png"
@@ -3054,7 +3054,7 @@
 			"name": "Insect",
 			"rarity": "common",
 			"mana_cost": "",
-			"type": "Token Creature — Insect",
+			"type": "Token Artifact Creature — Insect",
 			"collector_number": "13",
 			"image_uris": {
 				"en": "https://commanderziggens.github.io/sets/HOK-files/img/305.png"
